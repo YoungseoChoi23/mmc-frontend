@@ -1,8 +1,12 @@
 import { api } from "./api";
 
 const BACK_DOMAIN = import.meta.env.VITE_API_BASE_URL;
-export const KakaoURI = `${BACK_DOMAIN}/oauth2/authorization/kakao`;
-export const GoogleURI = `${BACK_DOMAIN}/oauth2/authorization/google`;
+export const KakaoURI = `${
+  import.meta.env.VITE_API_BASE_URL
+}/oauth2/authorization/kakao`;
+export const GoogleURI = `${
+  import.meta.env.VITE_API_BASE_URL
+}/oauth2/authorization/google`;
 
 /*토큰 만료 여부*/
 export const isTokenExpired = () => {
