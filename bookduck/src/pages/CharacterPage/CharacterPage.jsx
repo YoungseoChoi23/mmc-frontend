@@ -62,8 +62,8 @@ const CharacterPage = () => {
           </div>
           <img className="w-4 h-3 mt-[-0.0625rem]" src={polygon} />
         </div>
-        <div className="flex mt-4 h-[18.75rem]">
-          <UserDuck />
+        <div className="flex mt-4 h-[20.625rem]">
+          <UserDuck userId={getUserId()} />
         </div>
       </div>
       {/* 유저 정보  */}

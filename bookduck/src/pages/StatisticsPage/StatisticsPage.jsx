@@ -17,6 +17,31 @@ const StatisticsPage = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const genreToKorean = {
+    FICTION: "소설",
+    LITERARY: "시/에세이",
+    BUSINESS: "경제/경영",
+    SELF_HELP: "자기계발",
+    SCIENCE: "과학",
+    SOCIETY: "정치/사회",
+    LANGUAGE: "언어",
+    TRAVEL: "여행",
+    HISTORY: "역사",
+    COMPUTER: "컴퓨터/IT",
+    HEALTH: "건강/스포츠",
+    HOBBY: "취미/실용",
+    ART: "예술",
+    RELIGION: "종교",
+    COMICS: "만화",
+    HOME_COOKING: "가정/요리",
+    ARCHITECTURE: "건축",
+    REFERENCE: "교재/참고서",
+    TECHNOLOGY: "기술/공학",
+    HUMANITIES: "인문",
+    YOUTH: "아동/청소년",
+    OTHERS: "기타",
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,7 +62,12 @@ const StatisticsPage = () => {
   return (
     <div className="flex flex-col pb-[11.25rem]">
       <Header3 title="독서 리포트" />
-      <UserCard nickname={userData?.nickname} />
+      <UserCard
+        nickname={userData?.nickname}
+        userId={userId}
+        duckTitle={userData?.duckTitle}
+        genreToKorean={genreToKorean}
+      />
       <div className="flex flex-col pt-6 px-7 pb-7 gap-7 bg-gray-50">
         <div className="text-b1 font-semibold">
           {userData?.isFirstHalf ? "상반기" : "하반기"} 기록은 총{" "}
@@ -57,7 +87,12 @@ const StatisticsPage = () => {
         </div>
       </div>
       <MonthlyReading userData={userData} />
-      <PreferredGenre userData={userData?.mostReadGenres} />
+      <PreferredGenre
+        userData={userData?.mostReadGenres?.map((genre) => ({
+          ...genre,
+          genreName: genreToKorean[genre.genreName] || genre.genreName,
+        }))}
+      />
       <Divider2 />
       {/* 같은 작가의 작품을 최소 2권 이상을 읽어야 ‘선호하는 작가' 카드가 보임 */}
       <PreferredAuthor

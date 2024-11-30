@@ -126,7 +126,7 @@ const MainPage = () => {
           </div>
         </button>
         <div className="absolute top-[14.25rem] right-0 w-[12.6875rem] h-[12.9375rem]">
-          <UserDuck />
+          <UserDuck userId={userId} />
         </div>
         <ReadingSpaceComponent
           setColor={setColor}
