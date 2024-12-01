@@ -102,11 +102,24 @@ export const getBookFromFolder = async (folderId) => {
 /*책장에 책 추가*/
 export const postAddFolderBook = async (folderId, userbookId) => {
   try {
-    const res = await post(`/folders/${folderId}/books/${userbookId}`);
+    const res = await post(`/folders/${folderId}/books`, userbookId);
     console.log("책장에 책 추가 성공", res);
     return res;
   } catch (error) {
     console.error("책장에 책 추가 실패");
+    return {};
+  }
+};
+
+/*책장에 책 삭제*/
+export const deleteAddFolderBook = async (folderId, userbookId) => {
+  console.log(userbookId);
+  try {
+    const res = await del(`/folders/${folderId}/books`, { data: userbookId });
+    console.log("책장에 책 삭제 성공", res);
+    return res;
+  } catch (error) {
+    console.error("책장에 책 삭제 실패");
     return {};
   }
 };

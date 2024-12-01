@@ -7,9 +7,9 @@ const ExtractComponents = ({ excerptData, archive = false }) => {
   const createdDate = excerptData?.data.createdTime
     .split("T")[0]
     .replace(/-/g, ".");
+  console.log(excerptData);
   const excerptId = excerptData.data.excerptId;
   const title = excerptData?.title;
-
   const author = excerptData?.author;
   const content = excerptData?.data.excerptContent;
   const page = excerptData?.data.pageNumber;
@@ -21,11 +21,11 @@ const ExtractComponents = ({ excerptData, archive = false }) => {
       res.excerpt && res.review ? "ALL" : res.excerpt ? "EXCERPT" : "REVIEW";
 
     if (typeState === "ALL")
-      navigate(`/total-archive-detail/${excerptId}`, {
+      navigate(`/total-archive-detail/${res.archiveId}`, {
         state: { detailData: res },
       });
     if (typeState === "EXCERPT")
-      navigate(`/excerpt-archive-detail/${excerptId}`, {
+      navigate(`/excerpt-archive-detail/${res.archiveId}`, {
         state: { detailData: res },
       });
   };

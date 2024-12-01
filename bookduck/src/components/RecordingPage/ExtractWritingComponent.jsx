@@ -9,12 +9,11 @@ const ExtractWritingComponent = ({
   setInputValue,
   handleTextField,
   pageInputValue,
-  extractPublicState,
-  setExtractPublicState,
+  setPrivateShow,
+  privateShow,
 }) => {
-  const [extractImgURL, setExtractImgURL] = useState("");
-  const handleState = (state) => {
-    setExtractPublicState(state);
+  const handleToggle = () => {
+    setPrivateShow(!privateShow);
   };
 
   const handleExtractImage = async (e) => {
@@ -34,7 +33,12 @@ const ExtractWritingComponent = ({
       <div className="flex flex-col gap-[0.38rem]">
         <div className="flex justify-between py-2 mt-4">
           <div className="text-b1 font-semibold">발췌</div>
-          <div className="flex gap-[1.12rem]">
+          <div className="flex gap-3">
+            <PublicRange
+              setPrivateShow={setPrivateShow}
+              privateShow={privateShow}
+              handleToggle={handleToggle}
+            />
             <label
               htmlFor="ExtractImage"
               className="flex gap-[0.47rem] items-center cursor-pointer"
@@ -47,11 +51,6 @@ const ExtractWritingComponent = ({
               type="file"
               className="hidden"
               onChange={handleExtractImage}
-            />
-            <PublicRange
-              publicState={extractPublicState}
-              setPublicState={setExtractPublicState}
-              handleState={handleState}
             />
           </div>
         </div>

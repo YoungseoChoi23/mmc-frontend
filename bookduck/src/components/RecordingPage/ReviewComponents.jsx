@@ -7,14 +7,15 @@ import { getDetailExtractReview } from "../../api/archive";
 const ReviewComponents = ({ reviewData, archive = false }) => {
   console.log(reviewData);
   const content = reviewData?.data.reviewContent;
+  console.log(content);
   const reviewId = reviewData?.data.reviewId;
   const reviewTitle = reviewData?.data.reviewTitle;
   const title = reviewData?.title;
   const author = reviewData?.author;
   const color = reviewData?.data.color;
-  const createdDate = reviewData?.data.createdTime
-    .split("T")[0]
-    .replace(/-/g, ".");
+  const createdDate =
+    reviewData?.data.createdTime &&
+    reviewData?.data.createdTime.split("T")[0].replace(/-/g, ".");
 
   const navigate = useNavigate();
   const { reviewColor } = useReviewColorStore();
@@ -25,11 +26,11 @@ const ReviewComponents = ({ reviewData, archive = false }) => {
       res.excerpt && res.review ? "ALL" : res.excerpt ? "EXCERPT" : "REVIEW";
 
     if (typeState === "ALL")
-      navigate(`/total-archive-detail/${reviewId}`, {
+      navigate(`/total-archive-detail/${res.archiveId}`, {
         state: { detailData: res },
       });
     if (typeState === "REVIEW")
-      navigate(`/review-archive-detail/${reviewId}`, {
+      navigate(`/review-archive-detail/${res.archiveId}`, {
         state: { detailData: res },
       });
   };

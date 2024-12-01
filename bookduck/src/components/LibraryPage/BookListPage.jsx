@@ -28,7 +28,7 @@ const BookListPage = ({ view }) => {
   const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
   const [isCancel, setCancel] = useState(true);
   const [sortedBookList, setSortedBookList] = useState([]);
-  const [selectedBookId, setSelectedId] = useState();
+  const [selectedBookId, setSelectedBookId] = useState();
   const [currentState, setCurrentState] = useState({});
 
   const getSortKey = (sort) => {
@@ -84,11 +84,21 @@ const BookListPage = ({ view }) => {
     queryKey: ["bookListData", getSortKey(sort)],
     queryFn: () => getTotalBook(getSortKey(sort)),
   });
+  useEffect(() => {
+    if (bookListData) {
+      const initialState = bookListData.bookList.reduce((acc, book) => {
+        acc[book.userBookId] = book.readStatus;
+        return acc;
+      }, {});
+      setCurrentState(initialState);
+    }
+  }, [bookListData]);
 
   useEffect(() => {
     if (bookListData) {
       const initialState = bookListData.bookList.reduce((acc, book) => {
         acc[book.userBookId] = book.readStatus;
+        console.log(acc);
         return acc;
       }, {});
       setCurrentState(initialState);
@@ -127,7 +137,7 @@ const BookListPage = ({ view }) => {
   }, [tabList]);
 
   const handleStatusClick = (userBookId) => {
-    setSelectedId(userBookId);
+    setSelectedBookId(userBookId);
     console.log(userBookId);
     setStatusBottomSheet(true);
   };
@@ -137,16 +147,24 @@ const BookListPage = ({ view }) => {
       acc[book.userBookId] = book.readStatus;
       return acc;
     }, {});
-    setCurrentState(status);
+    setCurrentState(initialState);
+
+    setCurrentState((prev) => ({
+      ...prev, // 이전 상태를 복사
+      selectedBookId: getReadingStatusKey(status), // index 값을 업데이트
+    }));
     const res = await patchBookStatus(
       selectedBookId,
       getReadingStatusKey(status)
     );
+    window.location.reload();
+
     console.log(res);
   };
 
   const handlePutCancel = async () => {
     const res = await deleteBook(selectedBookId);
+    console.log(res);
     window.location.reload();
   };
 
@@ -182,7 +200,7 @@ const BookListPage = ({ view }) => {
                     handleStatusClick={() => handleStatusClick(book.userBookId)}
                     edit={true}
                     bottomSheet={true}
-                    status={getReadingStatus(currentState[book.userBookId])}
+                    status={currentState[book.userBookId]}
                     bookTitle={book.title}
                     author={book.authors}
                     bookImg={book.imgPath}
@@ -190,12 +208,13 @@ const BookListPage = ({ view }) => {
                   />
                 ))
               : sortedBookList &&
-                sortedBookList.map((book) => (
+                sortedBookList.map((book, index) => (
                   <BookListView
+                    key={index}
                     handleStatusClick={() => handleStatusClick(book.userBookId)}
                     edit={true}
                     bottomSheet={true}
-                    status={getReadingStatus(currentState[book.userBookId])}
+                    status={currentState[book.userBookId]}
                     bookTitle={book.title}
                     author={book.authors}
                     bookImg={book.imgPath}

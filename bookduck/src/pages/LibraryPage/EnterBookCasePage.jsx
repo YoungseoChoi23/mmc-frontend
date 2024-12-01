@@ -14,6 +14,7 @@ import EditBookListView from "../../components/common/EditBookListView";
 import add_book_btn from "../../assets/libraryPage/add-book-btn.svg";
 import RoundedTabComponent from "../../components/common/RoundedTabComponent";
 import {
+  deleteAddFolderBook,
   getBookFromFolder,
   getSortedTotalBook,
   getTotalBook,
@@ -33,6 +34,9 @@ const EnterBookCasePage = () => {
   const [bookList, setBookList] = useState([]);
   const [sortedBookList, setSortedBookList] = useState([]);
   const [selectedBookList, setSelectedBookList] = useState([]);
+  const [selectedFolderBookId, setSelectedFolderBookId] = useState([]);
+
+  const navigate = useNavigate();
 
   const getReadingStatusKey = (status) => {
     switch (status) {
@@ -63,7 +67,7 @@ const EnterBookCasePage = () => {
   }, []);
 
   //편집 시 BookListView 클릭 (재클릭하면 클릭 취소)
-  const handleItemClick = (index, bookId) => {
+  const handleItemClick = (index, bookId, folderBookId) => {
     setSelectedIndex((prev) =>
       prev.includes(index) ? prev.filter((t) => t !== index) : [...prev, index]
     );
@@ -71,6 +75,12 @@ const EnterBookCasePage = () => {
       prev.includes(bookId)
         ? prev.filter((t) => t !== bookId)
         : [...prev, bookId]
+    );
+
+    setSelectedFolderBookId((prev) =>
+      prev.includes(folderBookId)
+        ? prev.filter((t) => t !== folderBookId)
+        : [...prev, folderBookId]
     );
   };
 
@@ -117,9 +127,17 @@ const EnterBookCasePage = () => {
 
   const handleButtonClick = async () => {
     if (addBookState) {
+      const userbookId = selectedBookList;
+
       const res = await postAddFolderBook(id, userbookId);
       console.log(res);
+    } else {
+      const userbookId = selectedFolderBookId;
+      console.log(userbookId);
+      const res = await deleteAddFolderBook(id, userbookId);
+      console.log(res);
     }
+    window.location.reload();
   };
 
   return (
@@ -218,7 +236,13 @@ const EnterBookCasePage = () => {
                   folderBookListData.folderBookList.map((book, index) => (
                     <div
                       key={index}
-                      onClick={() => handleItemClick(index, book.userBookId)}
+                      onClick={() =>
+                        handleItemClick(
+                          index,
+                          book.userBookId,
+                          book.folderBookId
+                        )
+                      }
                       className={`${
                         selectedIndex.includes(index) ? "bg-gray-50" : ""
                       }`}
@@ -262,7 +286,11 @@ const EnterBookCasePage = () => {
                         <div
                           key={index}
                           onClick={() =>
-                            handleItemClick(index, book.userBookId)
+                            handleItemClick(
+                              index,
+                              book.userBookId,
+                              book.folderBookId
+                            )
                           }
                           className={`${
                             selectedIndex.includes(index) ? "bg-gray-50" : ""
@@ -285,7 +313,11 @@ const EnterBookCasePage = () => {
                         <div
                           key={index}
                           onClick={() =>
-                            handleItemClick(index, book.userBookId)
+                            handleItemClick(
+                              index,
+                              book.userBookId,
+                              book.folderBookId
+                            )
                           }
                           className={`${
                             selectedIndex.includes(index) ? "bg-gray-50" : ""

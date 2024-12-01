@@ -4,6 +4,7 @@ import TextField from "../common/TextField";
 import ButtonComponent from "../common/ButtonComponent";
 import { useNavigate } from "react-router-dom";
 import { postRegisterBook } from "../../api/recording";
+import useBookInfoStore from "../../store/useBookInfoStore";
 
 const DirectRegister = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +12,7 @@ const DirectRegister = () => {
   const [pages, setPages] = useState("");
   const [publisher, setPublisher] = useState("");
   const [imgFile, setImgFile] = useState();
-
+  const { setBookInfo } = useBookInfoStore();
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
@@ -47,6 +48,7 @@ const DirectRegister = () => {
     const res = await postRegisterBook(formData);
     console.log(res);
     if (res) {
+      setBookInfo(res.data);
       navigate("/recording");
     }
   };

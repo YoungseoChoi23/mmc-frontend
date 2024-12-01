@@ -23,8 +23,9 @@ const RecordingPage = () => {
   const [viewBottomSheet, setViewBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [bottomSheetType, setBottomSheetType] = useState("");
-  const [extractPublicState, setExtractPublicState] = useState("전체공개");
-  const [reviewPublicState, setReviewPublicState] = useState("전체공개");
+  const [privateShow, setPrivateShow] = useState(false);
+  const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
+  console.log(location);
   const {
     pageInputValue,
     setPageInputValue,
@@ -40,7 +41,7 @@ const RecordingPage = () => {
     setReviewInputValue,
   } = useReviewData();
 
-  const { reviewColor } = useReviewColorStore();
+  const { reviewColor, setReviewColor } = useReviewColorStore();
 
   const { bookInfo, setBookInfo } = useBookInfoStore();
 
@@ -78,7 +79,7 @@ const RecordingPage = () => {
     if (pageInputValue && extractInputValue && reviewInputValue) {
       data.excerpt = {
         excerptContent: extractInputValue,
-        visibility: extractPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
         pageNumber: parseInt(pageInputValue, 10),
         userBookId: bookInfo.userBookId,
       };
@@ -86,13 +87,13 @@ const RecordingPage = () => {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
-        visibility: reviewPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
         userBookId: bookInfo.userBookId,
       };
     } else if (pageInputValue && extractInputValue) {
       data.excerpt = {
         excerptContent: extractInputValue,
-        visibility: extractPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
         pageNumber: parseInt(pageInputValue, 10),
         userBookId: bookInfo.userBookId,
       };
@@ -101,9 +102,10 @@ const RecordingPage = () => {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
-        visibility: reviewPublicState === "전체공개" ? "PUBLIC" : "PRIVATE",
+        visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
         userBookId: bookInfo.userBookId,
       };
+      setReviewColor("");
     }
 
     // userBook: {
@@ -142,10 +144,7 @@ const RecordingPage = () => {
       />
       <div className="flex flex-col gap-[1rem] mx-4">
         <div className="mt-5">
-          <ColoredAuthorComponent
-            title={bookInfo.title}
-            author={bookInfo.author}
-          />
+          <ColoredAuthorComponent bookInfo={bookInfo} />
         </div>
       </div>
       <div className="mx-4">
@@ -154,8 +153,8 @@ const RecordingPage = () => {
           setInputValue={setExtractInputValue}
           pageInputValue={pageInputValue}
           handleTextField={handleExtractTextField}
-          extractPublicState={extractPublicState}
-          setExtractPublicState={setExtractPublicState}
+          privateShow={privateShow}
+          setPrivateShow={setPrivateShow}
         />
       </div>
       <div className="mt-7 mb-4">
@@ -168,8 +167,8 @@ const RecordingPage = () => {
           titleInputValue={titleInputValue}
           bookTitleValue={bookInfo.title}
           authorValue={bookInfo.author}
-          reviewPublicState={reviewPublicState}
-          setReviewPublicState={setReviewPublicState}
+          reviewPrivateShow={reviewPrivateShow}
+          setReviewPrivateShow={setReviewPrivateShow}
         />
       </div>
       <div className="h-[7.5rem]"></div>
@@ -223,7 +222,7 @@ const RecordingPage = () => {
                     <input
                       value={titleInputValue}
                       onChange={(e) => setTitleInputValue(e.target.value)}
-                      placeholder="제목"
+                      placeholder="제목 (25자 이내로 작성하세요)"
                       className="text-b1 font-semibold bg-transparent"
                     />
                     <textarea

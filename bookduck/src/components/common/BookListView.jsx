@@ -29,7 +29,7 @@ const BookListView = ({
       case "FINISHED":
         return "다 읽었어요";
       default:
-        return "서재 담기";
+        return "읽고 싶어요";
     }
   };
   return (

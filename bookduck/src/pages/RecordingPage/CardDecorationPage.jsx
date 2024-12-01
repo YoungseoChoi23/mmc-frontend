@@ -14,12 +14,22 @@ import useReviewColorStore from "../../store/useReviewColorStore";
 const CardDecorationPage = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("기본");
-  const { setReviewColor } = useReviewColorStore();
+  const { reviewColor, setReviewColor } = useReviewColorStore();
   const navigate = useNavigate();
   const textValue = location.state?.textValue;
   const reviewTitleValue = location.state?.titleValue;
   const bookTitleValue = location.state?.bookTitleValue;
   const authorValue = location.state?.authorValue;
+
+  const reviewData = {
+    data: {
+      reviewContent: textValue,
+      reviewTitle: reviewTitleValue,
+      title: bookTitleValue,
+      author: authorValue,
+      color: reviewColor,
+    },
+  };
 
   const hanldleColor = (color) => {
     setReviewColor(color);
@@ -35,12 +45,7 @@ const CardDecorationPage = () => {
       <StatusBar />
       <Header3 title="감상평 카드 꾸미기" />
       <div className="flex justify-center mt-[2.69rem] mb-[5.12rem]">
-        <ReviewComponents
-          content={textValue}
-          reviewTitle={reviewTitleValue}
-          title={bookTitleValue}
-          author={authorValue}
-        />
+        <ReviewComponents reviewData={reviewData} />
       </div>
       <div className="relative min-h-[26rem] rounded-t-[1.25rem] shadow-custom2">
         <div className="px-6 pt-8 pb-3">

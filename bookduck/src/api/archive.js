@@ -33,6 +33,27 @@ export const getDetailExtractReview = async (id, archiveType) => {
   }
 };
 
+export const delExtractReview = async (archiveId, excerptId, reviewId) => {
+  try {
+    // URL 조합: 필요한 파라미터만 포함
+    let url = `/archives/${archiveId}`;
+    const params = [];
+
+    if (excerptId) params.push(`excerptId=${excerptId}`);
+    if (reviewId) params.push(`reviewId=${reviewId}`);
+
+    // 파라미터가 있으면 URL에 추가
+    if (params.length > 0) {
+      url += `?${params.join("&")}`;
+    }
+
+    const res = await del(url);
+    console.log("발췌 및 감상평 삭제 성공", res);
+    return res;
+  } catch (error) {
+    console.error("발췌 및 감상평 삭제 실패", error);
+  }
+};
 export const postExtractImage = async (formData) => {
   try {
     const res = await apiAuth.post(`/archives/excerpts/ocr`, formData, {
