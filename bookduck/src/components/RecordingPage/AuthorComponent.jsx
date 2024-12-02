@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import img_template from "../../assets/recordingPage/img-template.svg";
 const AuthorComponent = ({ archiveDetailData }) => {
+  const navigate = useNavigate();
+
+  const handleGotoBookInfo = () => {
+    navigate(`/info/book/${archiveDetailData.bookInfoId}`);
+  };
   return (
     <>
-      <div className="w-[22.5625rem] px-4 py-[0.62rem] rounded-[0.5rem] bg-gray-50">
+      <div
+        onClick={handleGotoBookInfo}
+        className="w-[22.5625rem] px-4 py-[0.62rem] rounded-[0.5rem] bg-gray-50 cursor-pointer"
+      >
         <div className="flex gap-[0.88rem]">
           <div>
             <img
