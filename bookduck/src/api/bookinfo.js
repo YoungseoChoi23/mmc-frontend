@@ -13,6 +13,18 @@ export const getBookInfo = async ({ bookinfoId }) => {
   }
 };
 
+// 서재에 없는 책정보 조회(providerId)
+export const getBookExternalInfo = async ({ providerId }) => {
+  try {
+    const res = await get(`/bookinfo/external/${providerId}`);
+    console.log("책정보 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("책정보 조회 실패: ", error);
+    throw error;
+  }
+};
+
 // custom 책정보 조회(bookinfoId)
 export const getCustomBookInfo = async ({ bookinfoId }) => {
   try {

@@ -36,24 +36,26 @@ const InfoView = ({ bookData, ratingData }) => {
     <div className="flex flex-col pb-[8rem] gap-5">
       <BookPlot bookData={bookData} />
       <Divider1 />
-      <div className="flex flex-col items-center gap-1">
-        <div className="flex px-4 text-b1 font-semibold justify-between items-center w-full">
-          한줄평 ({ratingList?.length})
-          <img
-            className="cursor-pointer"
-            src={right}
-            onClick={handleCommentClick}
-          />
-        </div>
-        {displayedRatings.map((oneLine, index) => (
-          <div className="flex flex-col items-center" key={index}>
-            <UserComment data={oneLine} />
-            <div className="w-[22.5625rem]">
-              <Divider2 />
-            </div>
+      {ratingList?.length > 0 && (
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex px-4 text-b1 font-semibold justify-between items-center w-full">
+            한줄평 ({ratingList?.length})
+            <img
+              className="cursor-pointer"
+              src={right}
+              onClick={handleCommentClick}
+            />
           </div>
-        ))}
-      </div>
+          {displayedRatings.map((oneLine, index) => (
+            <div className="flex flex-col items-center" key={index}>
+              <UserComment data={oneLine} />
+              <div className="w-[22.5625rem]">
+                <Divider2 />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       <Divider1 />
       {ratingList?.length > 0 && (
         <div className="flex flex-col px-4 gap-6 text-b1 font-semibold">

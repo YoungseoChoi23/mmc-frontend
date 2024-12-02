@@ -46,21 +46,23 @@ const BookPlot = ({ bookData }) => {
           </div>
         </div>
 
-        <div
-          ref={contentRef}
-          className={`relative text-b2 font-regular overflow-hidden transition-all cursor-pointer ${
-            isExpanded ? "max-h-full" : "max-h-24"
-          }`}
-          onClick={toggleExpand}
-        >
-          {text}
+        <div className="relative">
+          <div
+            ref={contentRef}
+            className={`relative text-b2 font-regular overflow-hidden transition-all cursor-pointer ${
+              isExpanded ? "max-h-full" : "max-h-24"
+            }`}
+            onClick={toggleExpand}
+            dangerouslySetInnerHTML={{ __html: text }}
+          />
           {showMoreBtn && (
             <span
-              className={` px-2 w-[5.5rem] cursor-pointer ${
+              className={`px-2 w-[5.5rem] cursor-pointer ${
                 isExpanded
                   ? "text-blue-400"
                   : "absolute bottom-0 right-0 flex justify-end text-gray-400 bg-white-gradiation"
               }`}
+              onClick={toggleExpand}
             >
               {isExpanded ? "접기" : "더보기"}
             </span>
