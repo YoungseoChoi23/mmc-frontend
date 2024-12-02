@@ -142,12 +142,15 @@ const SelectCustomPage = () => {
         custom={true}
         setVisible={setVisible}
       >
-        <SearchComponent
-          search={search}
-          setSearch={setSearch}
-          custom={true}
-          placeholder="서재에 담긴 책을 검색하세요"
-        />
+        <div className="px-4">
+          <SearchComponent
+            search={search}
+            setSearch={setSearch}
+            custom={true}
+            placeholder="서재에 담긴 책을 검색하세요"
+          />
+        </div>
+
         <div className="px-4">
           {books.map((book, index) => (
             <BookListView

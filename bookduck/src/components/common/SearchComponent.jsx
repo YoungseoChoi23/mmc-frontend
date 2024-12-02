@@ -38,7 +38,7 @@ const SearchComponent = ({
     >
       <div
         className={`flex  ${
-          custom ? "w-[23rem]" : "w-[19.5625rem]"
+          custom ? "w-[22rem]" : "w-[19.5625rem]"
         } h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2`}
       >
         <SearchIcon className=" text-gray-50 mr-2" />
