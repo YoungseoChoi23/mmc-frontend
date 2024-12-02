@@ -4,7 +4,7 @@ const AuthorComponent = ({ archiveDetailData }) => {
   const navigate = useNavigate();
 
   const handleGotoBookInfo = () => {
-    navigate(`/info/book/${archiveDetailData.bookInfoId}`);
+    navigate(`/info/book/custom/${archiveDetailData.bookInfoId}`);
   };
   return (
     <>

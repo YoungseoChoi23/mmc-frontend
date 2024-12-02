@@ -13,13 +13,10 @@ const Search = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="px-4">
         <SearchComponent search={search} setSearch={setSearch} />
       </div>
-      <div className="flex flex-col mx-4 mt-[0.5rem]">
-        <BookListView edit={false} handleOnClick={handleRecording} />
-        <BookListView edit={false} handleOnClick={handleRecording} />
-      </div>
+      <div className="flex flex-col mx-4 mt-[0.5rem]"></div>
     </>
   );
 };
