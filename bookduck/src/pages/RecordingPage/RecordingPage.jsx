@@ -23,6 +23,8 @@ const RecordingPage = () => {
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
   const { reviewColor, setReviewColor } = useReviewColorStore();
   const { bookInfo, setBookInfo } = useBookInfoStore();
+  const author = location.state?.author;
+  const title = location.state?.title;
 
   const {
     pageInputValue,
@@ -138,6 +140,8 @@ const RecordingPage = () => {
       state: {
         textValue: reviewInputValue,
         titleValue: titleInputValue,
+        bookTitleValue: title,
+        authorValue: author,
       },
     });
   };
