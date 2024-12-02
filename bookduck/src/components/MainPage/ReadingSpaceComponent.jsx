@@ -198,7 +198,8 @@ const ReadingSpaceComponent = ({
   );
 
   const bind = useDrag(
-    ({ movement: [, my], memo = height.get(), last }) => {
+    ({ movement: [, my], memo = height.get(), last, event }) => {
+      event.preventDefault();
       if (isEditMode) return memo;
       if (last) {
         api.start({
@@ -213,7 +214,7 @@ const ReadingSpaceComponent = ({
       }
       return memo;
     },
-    { axis: "y" }
+    { axis: "y", pointer: { touch: true } }
   );
 
   const handleDragEnd = (result) => {
