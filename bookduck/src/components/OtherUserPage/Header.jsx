@@ -50,6 +50,12 @@ const Header = ({
             <span className="text-white text-btn3">요청수락</span>
           </button>
         );
+      case "REQUEST_DISABLED":
+        return (
+          <button className="py-1 px-3 bg-[#DDD] rounded-[0.375rem] pointer-events-none">
+            <span className="text-white text-btn3">요청불가</span>
+          </button>
+        );
       default:
         return null;
     }

@@ -32,13 +32,13 @@ const SearchComponent = ({
   return (
     <div
       className={classNames(
-        "flex items-center w-[24.5625rem] px-4 py-1 gap-2",
+        "flex items-center w-[24.5625rem]  py-1 gap-2",
         className
       )}
     >
       <div
         className={`flex  ${
-          custom ? "w-[23rem]" : "w-[18rem]"
+          custom ? "w-[23rem]" : "w-[19.5625rem]"
         } h-[2.5rem] bg-gray-50 items-center rounded-[0.5rem] px-2`}
       >
         <SearchIcon className=" text-gray-50 mr-2" />

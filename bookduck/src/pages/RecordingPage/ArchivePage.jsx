@@ -1,16 +1,12 @@
 import { useState } from "react";
 import BottomNavbar from "../../components/common/BottomNavbar";
 import Header from "../../components/RecordingPage/Header";
-
 import TotalView from "../../components/RecordingPage/TotalView";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import ExtractView from "../../components/RecordingPage/ExtractView";
 import ReviewView from "../../components/RecordingPage/ReviewView";
 import { useNavigate } from "react-router-dom";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
-import { useQuery } from "@tanstack/react-query";
-import { getExtractReview } from "../../api/archive";
-import { getUserId } from "../../api/oauth";
 
 const ArchivePage = () => {
   const [tab, setTab] = useState("전체보기");

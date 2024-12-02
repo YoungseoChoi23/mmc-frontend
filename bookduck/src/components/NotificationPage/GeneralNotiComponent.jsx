@@ -19,6 +19,7 @@ export const getAlarmList = async ({ pageParam = 0 }) => {
   const response = await get(
     `/alarms/common?page=${pageParam}&size=${DATA_LIMIT}`
   );
+  console.log("알람데이터", response);
   const { pageContent, totalPages } = response;
 
   return {

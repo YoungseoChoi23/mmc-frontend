@@ -8,64 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { patchAlarm } from "./GeneralNotiComponent";
 
-const notificationTemplates = {
-  FRIEND_REQUEST: {
-    icon: alarmhand,
-    message: (text) => (
-      <span>
-        <strong style={{ fontWeight: "bold" }}>{text}님</strong>으로부터 친구
-        요청이 도착했어요.
-      </span>
-    ),
-    navigateTo: () => ({ pathname: `/friend`, state: { activeTab: "요청" } }),
-  },
-  FRIEND_APPROVED: {
-    icon: alarmhand,
-    message: (text) => (
-      <span>
-        <strong style={{ fontWeight: "bold" }}>{text}님</strong>이 친구요청을
-        수락했어요.
-      </span>
-    ),
-    navigateTo: (resourceId) => `/user/${resourceId}`,
-  },
-  LEVEL_UP: {
-    icon: alarmduck,
-    message: (text) => (
-      <span>
-        야호! 오리가 <strong style={{ fontWeight: "bold" }}>Lv.{text}</strong>로
-        성장했어요.
-      </span>
-    ),
-    navigateTo: () => `/character`,
-  },
-  ONELINELIKE_ADDED: {
-    icon: alarmheart,
-    message: (text) => (
-      <span>
-        <strong style={{ fontWeight: "bold" }}>{text}</strong>의 한줄평에
-        좋아요가 눌렸어요.
-      </span>
-    ),
-    navigateTo: () => `/myBadge`,
-  },
-  BADGE_UNLOCKED: {
-    icon: alarmbadge,
-    message: (text) => (
-      <span>
-        축하합니다!🎉 새로운{" "}
-        <strong style={{ fontWeight: "bold" }}>{text}</strong>배지를 획득했어요.
-      </span>
-    ),
-    navigateTo: () => `/myBadge`,
-  },
-  ITEM_UNLOCKED: {
-    icon: alarmduck,
-    message: <span>새로운 아이템을 획득했어요. 얼른 착용해봐요!</span>,
-  },
-  navigateTo: () => `/character`,
-};
-
 const formatNotiTime = (rawTime) => {
   const now = new Date();
   const past = new Date(rawTime);
@@ -98,6 +40,65 @@ const NotificationItemComponent = ({
   resourceId,
   alarmId,
 }) => {
+  const notificationTemplates = {
+    FRIEND_REQUEST: {
+      icon: alarmhand,
+      message: (text) => (
+        <span>
+          <strong style={{ fontWeight: "bold" }}>{text}님</strong>으로부터 친구
+          요청이 도착했어요.
+        </span>
+      ),
+      navigateTo: () => ({ pathname: `/friend`, state: { activeTab: "요청" } }),
+    },
+    FRIEND_APPROVED: {
+      icon: alarmhand,
+      message: (text) => (
+        <span>
+          <strong style={{ fontWeight: "bold" }}>{text}님</strong>이 친구요청을
+          수락했어요.
+        </span>
+      ),
+      navigateTo: (resourceId) => `/user/${resourceId}`,
+    },
+    LEVEL_UP: {
+      icon: alarmduck,
+      message: (text) => (
+        <span>
+          야호! 오리가 <strong style={{ fontWeight: "bold" }}>Lv.{text}</strong>
+          로 성장했어요.
+        </span>
+      ),
+      navigateTo: () => `/character`,
+    },
+    ONELINELIKE_ADDED: {
+      icon: alarmheart,
+      message: (text) => (
+        <span>
+          <strong style={{ fontWeight: "bold" }}>{text}</strong>의 한줄평에
+          좋아요가 눌렸어요.
+        </span>
+      ),
+      navigateTo: () => `/info/book/${resourceId}`,
+    },
+    BADGE_UNLOCKED: {
+      icon: alarmbadge,
+      message: (text) => (
+        <span>
+          축하합니다!🎉 새로운{" "}
+          <strong style={{ fontWeight: "bold" }}>{text}</strong>배지를
+          획득했어요.
+        </span>
+      ),
+      navigateTo: () => `/myBadge`,
+    },
+    ITEM_UNLOCKED: {
+      icon: alarmduck,
+      message: <span>새로운 아이템을 획득했어요. 얼른 착용해봐요!</span>,
+    },
+    navigateTo: () => `/character`,
+  };
+
   const navigate = useNavigate();
   const notificationData = notificationTemplates[alarmType];
   useEffect(() => {

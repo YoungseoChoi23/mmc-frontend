@@ -6,7 +6,7 @@
 // {isAlarmModalOpen && <CharacterAlarmModal onClick={toggleAlarmModal} />}
 
 import { useEffect, useState } from "react";
-import teacherDuck from "../../assets/common/teacher-duck.png";
+import teacherDuck from "../../assets/common/teacher-duck.svg";
 import Confetti from "react-confetti";
 const CharacterAlarmModal = ({ type, badgeType, badgeName, text, onClick }) => {
   const [isConfettiActive, setIsConfettiActive] = useState(true);
@@ -29,46 +29,50 @@ const CharacterAlarmModal = ({ type, badgeType, badgeName, text, onClick }) => {
         width={window.innerWidth}
         height={window.innerHeight}
       />
-      <img
-        className={`absolute ${
-          type === "LEVEL" ? "top-[240px]" : "top-[140px]"
-        } z-[230]`}
-        src={teacherDuck}
-        alt="teacher duck"
-      />
-      <div className="relative flex flex-col items-center bg-white w-[330px] rounded-[20px] z-[240]">
-        <div className="flex flex-col py-4 gap-3 w-full">
-          <div className="flex flex-col gap-3.5 pb-5">
-            <div className="flex justify-center items-center text-t2 text-center font-semibold h-[3rem]">
-              축하해요!
-            </div>
-            <div className="flex flex-col items-center px-7 gap-3">
-              {type === "BADGE" && (
-                <img
-                  className="w-[9.375rem] h-[9.375rem] "
-                  src={`assets/characterPage/badges/${badgeType}/${badgeName}.png`}
-                  alt={`${badgeName} badge`}
-                />
-              )}
-              <div className="text-b1">
-                {type === "LEVEL" ? (
-                  <span>
-                    북덕이 레벨 <span className="font-bold">{text}</span>로
-                    레벨업했어요
-                  </span>
-                ) : (
-                  <p className="w-[14rem] text-center">{text}</p>
+      <div
+        className={`relative ${
+          type === "LEVEL" ? "h-[19.875rem]" : "h-[31.625rem]"
+        } w-[20.625rem] `}
+      >
+        <img
+          className="absolute left-[30%] z-[230] w-[7.375rem] h-[10.4375rem]"
+          src={teacherDuck}
+          alt="teacher duck"
+        />
+        <div className="absolute bottom-0 flex flex-col items-center bg-white w-[330px] rounded-[20px] z-[240]">
+          <div className="flex flex-col py-4 gap-3 w-full">
+            <div className="flex flex-col gap-3.5 pb-5">
+              <div className="flex justify-center items-center text-t2 text-center font-semibold h-[3rem]">
+                축하해요!
+              </div>
+              <div className="flex flex-col items-center px-7 gap-3">
+                {type === "BADGE" && (
+                  <img
+                    className="w-[9.375rem] h-[9.375rem] "
+                    src={`assets/characterPage/badges/${badgeType}/${badgeName}.png`}
+                    alt={`${badgeName} badge`}
+                  />
                 )}
+                <div className="text-b1">
+                  {type === "LEVEL" ? (
+                    <span>
+                      북덕이 레벨 <span className="font-bold">{text}</span>로
+                      레벨업했어요
+                    </span>
+                  ) : (
+                    <p className="w-[14rem] text-center">{text}</p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="px-4 h-12 w-full">
-            <button
-              className="text-b1 font-semibold text-white bg-gray-700 p-[10px] w-[100%] h-12 rounded-[8px]"
-              onClick={onClick}
-            >
-              확인
-            </button>
+            <div className="px-4 h-12 w-full">
+              <button
+                className="text-b1 font-semibold text-white bg-gray-700 p-[10px] w-[100%] h-12 rounded-[8px]"
+                onClick={onClick}
+              >
+                확인
+              </button>
+            </div>
           </div>
         </div>
       </div>

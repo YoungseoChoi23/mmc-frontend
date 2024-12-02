@@ -53,7 +53,7 @@ const SearchMainPage = () => {
   const popularBooks = popularBooksQuery.data.bookList;
 
   return (
-    <div>
+    <div className="w-[24.5625rem] px-4">
       <SearchComponent
         search={search}
         setSearch={setSearch}
@@ -61,7 +61,7 @@ const SearchMainPage = () => {
       />
       {!search ? (
         <>
-          <div className="flex flex-col px-4 gap-3 mt-4">
+          <div className="flex flex-col px-4 gap-3 mt-4 margin-auto">
             <div>최근 기록한 책</div>
             <div className="flex flex-row gap-3">
               {recentBooks.length > 0 ? (

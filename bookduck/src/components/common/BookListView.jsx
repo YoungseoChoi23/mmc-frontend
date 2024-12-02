@@ -17,6 +17,7 @@ const BookListView = ({
   status = "NOT_STARTED",
   bottomSheet = false,
   rating = 0,
+  isSearch = false,
 }) => {
   const readingStauts = (status) => {
     switch (status) {
@@ -45,7 +46,7 @@ const BookListView = ({
           src={bookImg ? bookImg : coverEx}
           alt="coverEx"
         />
-        <div className="flex flex-col gap-1 w-[13rem]">
+        <div className="flex flex-col gap-1 w-[11rem]">
           {register && (
             <div className=" text-c1 text-orange-400">직접 등록한 책</div>
           )}
@@ -53,18 +54,20 @@ const BookListView = ({
             {bookTitle}
           </div>
           <div className=" text-b1 text-gray-500 truncate">{author}</div>
-          <div className="flex mt-[0.5rem]">
-            {[...Array(5)].map((_, index) => (
-              <div key={index}>
-                <img
-                  key={index}
-                  src={index < rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
-                  alt="rating"
-                  className="" // 이미지 크기 조절
-                />
-              </div>
-            ))}
-          </div>
+          {!isSearch && (
+            <div className="flex mt-[0.5rem]">
+              {[...Array(5)].map((_, index) => (
+                <div key={index}>
+                  <img
+                    key={index}
+                    src={index < rating ? filledImage : emptyImage} // 채워진 이미지 또는 비워진 이미지 표시
+                    alt="rating"
+                    className="" // 이미지 크기 조절
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {edit ? (
@@ -73,7 +76,13 @@ const BookListView = ({
             <img src={menuBar} alt="menuBar" />
           </div>
         ) : (
-          <button onClick={handleStatusClick} className="flex flex-row ml-3">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleStatusClick();
+            }}
+            className="flex flex-row ml-3"
+          >
             <div className="text-btn4 text-gray-500">
               {readingStauts(status)}
             </div>

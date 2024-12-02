@@ -147,6 +147,14 @@ const SearchBookComponent = ({ search }) => {
     }
   };
 
+  const handleBookClick = (bookInfoId, providerId) => {
+    if (bookInfoId === null) {
+      navigate(`/info/book/${providerId}`);
+    } else {
+      navigate(`/info/book/${bookInfoId}`);
+    }
+  };
+
   const handleStatusChange = (option) => {
     if (!selectedBook) return;
 
@@ -262,6 +270,10 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
+                handleOnClick={() =>
+                  handleBookClick(book.bookUnitDto.bookInfoId, book.providerId)
+                }
+                isSearch={true}
               />
             ))}
           </div>
@@ -279,6 +291,10 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, false)}
+                isSearch={true}
+                handleOnClick={() =>
+                  navigate(`/info/book/${book.bookUnitDto.bookInfoId}`)
+                }
               />
             ))}
             <div ref={loaderRef} style={{ height: "1px" }} />
