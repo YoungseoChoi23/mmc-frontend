@@ -4,11 +4,13 @@ import lock from "../../assets/characterPage/lock.svg";
 import Item from "./Item";
 const Skin = ({ item, onItemSelect, isSelected }) => {
   const handleClick = () => {
-    onItemSelect(item);
+    if (item.isOwned) {
+      onItemSelect(item);
+    }
   };
 
   return (
-    <div className="w-[110px] h-[110px] rounded-[12px]" onClick={handleClick}>
+    <div className="w-[110px] h-[110px] rounded-[12px]">
       {item.isOwned ? (
         <div
           className="relative flex justify-center items-center bg-gray-300 w-[110px] h-[110px] rounded-[12px] cursor-pointer"

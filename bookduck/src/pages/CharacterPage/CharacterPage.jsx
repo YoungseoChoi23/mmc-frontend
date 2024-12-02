@@ -58,7 +58,7 @@ const CharacterPage = () => {
       <div className="flex flex-col mt-[4.25rem] gap-1 w-full h-[23.125rem]">
         <div className="flex flex-col items-center">
           <div className="flex justify-center px-6 py-2 bg-gray-50 rounded-[6.25rem] text-b2 font-semibold text-gray-500 h-10">
-            캐릭터 말풍선
+            독서하기 좋은 날~
           </div>
           <img className="w-4 h-3 mt-[-0.0625rem]" src={polygon} />
         </div>

@@ -10,10 +10,9 @@ import { getUserId } from "../../api/oauth";
 const UserComment = ({ data }) => {
   //날짜 포맷
   const formattedDate = data?.createdTime.split("T")[0].replace(/-/g, ".");
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(data?.isLiked || false);
   const [likeCount, setLikeCount] = useState(data?.oneLineLikeCount || 0);
   const userId = getUserId();
-  console.log(userId);
   const handleLikeClick = async (onelineId) => {
     try {
       if (isLiked) {
