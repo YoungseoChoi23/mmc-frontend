@@ -307,7 +307,7 @@ const ReadingSpaceComponent = ({
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 ">
                 <Droppable
                   droppableId="droppableList"
                   isDropDisabled={!isEditMode}
@@ -316,12 +316,12 @@ const ReadingSpaceComponent = ({
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      className="flex flex-col gap-1"
+                      className="flex flex-col items-center gap-1 mt-[5rem]"
                     >
                       {cards.length === 0 ? (
                         isMine ? (
                           // 카드가 없을 때 렌더링
-                          <div className="m-[5rem] flex flex-col items-center w-[14rem]">
+                          <div className="flex flex-col items-center w-[13.6875rem]">
                             <div className=" text-gray-500 text-c1 mb-[0.38rem]">
                               리딩 스페이스가 텅 비어있네요!
                             </div>
