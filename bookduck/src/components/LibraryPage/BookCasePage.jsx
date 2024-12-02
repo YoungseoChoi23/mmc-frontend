@@ -70,7 +70,7 @@ const BookCasePage = ({ showAddBookCaseBottomSheet, bookCaseId }) => {
 
   return (
     <>
-      <div className="h-[44rem] overflow-y-auto ">
+      <div>
         <div className="flex flex-col gap-4 mt-4 mx-4">
           {totalFolderData.allFolderList.map((folder, index) => (
             <BookCaseComponent

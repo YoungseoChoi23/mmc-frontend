@@ -192,7 +192,7 @@ const BookListPage = ({ view }) => {
           </div>
         </div>
         {view === "list" && (
-          <div className="h-[40rem]  mx-4 overflow-y-auto ">
+          <div className=" mx-4  ">
             {tabList.length === 0
               ? bookListData.bookList.map((book, index) => (
                   <BookListView

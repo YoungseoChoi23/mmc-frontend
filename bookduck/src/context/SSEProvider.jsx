@@ -34,7 +34,7 @@ export const SSEProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${accessKey}`,
           },
-          heartbeatTimeout: 300000, // 5분
+          heartbeatTimeout: 300000000,
           withCredentials: true,
         }
       );

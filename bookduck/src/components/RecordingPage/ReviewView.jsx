@@ -14,7 +14,7 @@ const ReviewView = () => {
     queryFn: () => getExtractReview(userId, "REVIEW", 0, 20),
   });
   return (
-    <div className="flex flex-col gap-[1rem] items-center max-h-[40rem]  mt-[1rem] overflow-y-auto">
+    <div className="flex flex-col gap-[1rem] items-center mt-[1rem]">
       {archiveReviewData.archiveList.map((it, index) => (
         <ReviewComponents key={index} reviewData={it} archive={true} />
       ))}

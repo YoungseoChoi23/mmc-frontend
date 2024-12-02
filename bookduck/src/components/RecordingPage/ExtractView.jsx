@@ -15,7 +15,7 @@ const ExtractView = () => {
   });
 
   return (
-    <div className="flex flex-col gap-[1rem] items-center max-h-[40rem]  mt-[1rem] overflow-y-auto">
+    <div className="flex flex-col gap-[1rem] items-center   mt-[1rem] ">
       {archiveExcerptData.archiveList.map((it, index) => (
         <ExtractComponents key={index} excerptData={it} archive={true} />
       ))}

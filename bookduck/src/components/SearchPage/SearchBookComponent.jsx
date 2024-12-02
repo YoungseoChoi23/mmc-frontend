@@ -176,6 +176,7 @@ const SearchBookComponent = ({ search }) => {
       // 등록된 책만 처리
       patchRegisteredStatus(option);
     }
+    setCurrentState(option);
   };
 
   // 책 선택 핸들러

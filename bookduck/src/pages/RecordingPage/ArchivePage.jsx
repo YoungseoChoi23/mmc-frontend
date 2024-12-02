@@ -27,7 +27,7 @@ const ArchivePage = () => {
           size="small"
           borderWidth="3rem"
         />
-        <div className="h-[45rem] overflow-y-auto">
+        <div>
           {tab === "전체보기" && <TotalView />}
           {tab === "발췌" && <ExtractView />}
           {tab === "감상평" && <ReviewView />}
