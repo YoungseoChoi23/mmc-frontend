@@ -21,9 +21,8 @@ const RecordingPage = () => {
   const [bottomSheetType, setBottomSheetType] = useState("");
   const [privateShow, setPrivateShow] = useState(false);
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
-  const author = location.state?.author;
-  const title = location.state?.title;
-  console.log(location);
+  const { reviewColor, setReviewColor } = useReviewColorStore();
+  const { bookInfo, setBookInfo } = useBookInfoStore();
 
   const {
     pageInputValue,
@@ -39,10 +38,6 @@ const RecordingPage = () => {
     reviewInputValue,
     setReviewInputValue,
   } = useReviewData();
-
-  const { reviewColor, setReviewColor } = useReviewColorStore();
-
-  const { bookInfo, setBookInfo } = useBookInfoStore();
 
   const handleBack = () => {
     setReviewColor("");
@@ -141,10 +136,8 @@ const RecordingPage = () => {
   const handleDecoration = () => {
     navigate("/recording/decoration", {
       state: {
-        textValue: inputValue,
+        textValue: reviewInputValue,
         titleValue: titleInputValue,
-        bookTitleValue: bookTitleValue,
-        authorValue: authorValue,
       },
     });
   };
