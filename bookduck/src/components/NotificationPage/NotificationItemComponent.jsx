@@ -94,9 +94,9 @@ const NotificationItemComponent = ({
     },
     ITEM_UNLOCKED: {
       icon: alarmduck,
-      message: <span>새로운 아이템을 획득했어요. 얼른 착용해봐요!</span>,
+      message: () => <span>새로운 아이템을 획득했어요. 얼른 착용해봐요!</span>,
+      navigateTo: () => `/character`,
     },
-    navigateTo: () => `/character`,
   };
 
   const navigate = useNavigate();

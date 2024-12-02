@@ -148,11 +148,16 @@ const SearchBookComponent = ({ search }) => {
   };
 
   const handleBookClick = (bookInfoId, providerId) => {
+    console.log(bookInfoId, providerId);
     if (bookInfoId === null) {
-      navigate(`/info/book/${providerId}`);
+      navigate(`/info/book/external/${providerId}`);
     } else {
       navigate(`/info/book/${bookInfoId}`);
     }
+  };
+
+  const handleCustomBookClick = (bookInfoId) => {
+    navigate(`/info/book/custom/${bookInfoId}`);
   };
 
   const handleStatusChange = (option) => {
@@ -271,7 +276,7 @@ const SearchBookComponent = ({ search }) => {
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
                 handleOnClick={() =>
-                  handleBookClick(book.bookUnitDto.bookInfoId, book.providerId)
+                  handleCustomBookClick(book.bookUnitDto.bookInfoId)
                 }
                 isSearch={true}
               />
@@ -293,7 +298,7 @@ const SearchBookComponent = ({ search }) => {
                 handleStatusClick={() => handleSelectedBook(book, false)}
                 isSearch={true}
                 handleOnClick={() =>
-                  navigate(`/info/book/${book.bookUnitDto.bookInfoId}`)
+                  handleBookClick(book.bookUnitDto.bookInfoId, book.providerId)
                 }
               />
             ))}
