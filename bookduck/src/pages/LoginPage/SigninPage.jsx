@@ -42,6 +42,7 @@ const SigninPage = () => {
     try {
       const updatedNickname = { nickname: nickname };
       await patch(`/settings/nickname`, updatedNickname);
+      window.location.reload();
       // console.log("닉네임 업데이트 성공:", response);
     } catch (error) {
       console.error("닉네임 변경 오류", error);

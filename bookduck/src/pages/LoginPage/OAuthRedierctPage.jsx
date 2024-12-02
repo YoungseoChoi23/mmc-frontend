@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import SuspenseLoading from "../../components/common/SuspenseLoading";
 const OAuthRedirectPage = () => {
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const OAuthRedirectPage = () => {
     location.reload();
   }, []);
 
-  return <div>리다이렉트 중입니다...</div>;
+  return <SuspenseLoading />;
 };
 
 export default OAuthRedirectPage;
