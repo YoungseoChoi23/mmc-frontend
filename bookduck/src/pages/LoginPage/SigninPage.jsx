@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import BottomBackgroundComponent from "../../components/common/BottomBackgroundComponent";
 import TextField from "../../components/common/TextField";
-import StatusBar from "../../components/common/StatusBar";
 import { post, get, patch } from "../../api/example";
 
 const SigninPage = () => {
@@ -99,7 +98,6 @@ const SigninPage = () => {
   );
   return (
     <div className="w-[24.5625rem]">
-      <StatusBar />
       <div className="px-4">
         <div className="text-t2 font-semibold mt-6">
           BookDuck과 독서를 시작하기 전에,

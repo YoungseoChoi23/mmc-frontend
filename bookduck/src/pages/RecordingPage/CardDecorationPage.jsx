@@ -1,10 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header3 from "../../components/common/Header3";
-import StatusBar from "../../components/common/StatusBar";
 import ReviewComponents from "../../components/RecordingPage/ReviewComponents";
-import Divider1 from "../../components/common/Divider1";
 import RoundedTabComponent from "../../components/common/RoundedTabComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ColorPalette from "../../components/RecordingPage/ColorPalette";
 import { colorDefaultPalette } from "../../constant/colorDefaultPalette";
 import { colorThemePalette } from "../../constant/colorThemePalette";
@@ -42,7 +40,6 @@ const CardDecorationPage = () => {
 
   return (
     <>
-      <StatusBar />
       <Header3 title="감상평 카드 꾸미기" />
       <div className="flex justify-center mt-[2.69rem] mb-[5.12rem]">
         <ReviewComponents reviewData={reviewData} />

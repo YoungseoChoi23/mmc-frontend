@@ -21,7 +21,7 @@ const getReadingStatusKey = (status) => {
     case "중단했어요":
       return "STOPPED";
     default:
-      return "NOT_STARTED";
+      return null;
   }
 };
 const getReadingStatusKor = (status) => {
@@ -35,7 +35,7 @@ const getReadingStatusKor = (status) => {
     case "STOPPED":
       return "중단했어요";
     default:
-      return "NOT_STARTED";
+      return null;
   }
 };
 
@@ -275,7 +275,7 @@ const SearchBookComponent = ({ search }) => {
                 author={book.bookUnitDto.author}
                 bookImg={book.bookUnitDto.imgPath}
                 rating={book.bookUnitDto.myRating}
-                status={book.bookUnitDto.readStatus}
+                status={book.bookUnitDto.readStatus || "ADD_TO_LIBRARY"}
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, false)}

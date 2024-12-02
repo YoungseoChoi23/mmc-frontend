@@ -1,5 +1,4 @@
 import { useState } from "react";
-import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import BookListPage from "../../components/LibraryPage/BookListPage";
 import BookCasePage from "../../components/LibraryPage/BookCasePage";
@@ -42,7 +41,6 @@ const LibraryPage = () => {
 
   return (
     <>
-      <StatusBar />
       <div className="relative flex flex-col ">
         <Header title="서재" />
         <TabBarComponent

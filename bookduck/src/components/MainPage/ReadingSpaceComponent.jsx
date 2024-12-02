@@ -37,17 +37,39 @@ const ReadingSpaceComponent = ({
   isMine = true,
   otherUserId,
 }) => {
-  //상태관리
   const navigate = useNavigate();
-
+  //상태관리
   const [isHelp, setIsHelp] = useState(false);
   const [isHelpVisible, setHelpVisible] = useState(false);
   const [cards, setCards] = useState([]);
   const [userId, setUserId] = useState(null);
-  const screenHeight = window.innerHeight;
-  const initialHeight = screenHeight * 0.55;
-  const expandedHeight = screenHeight * 0.95;
-  const hideButtonThreshold = initialHeight + 50;
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+  const [initialHeight, setInitialHeight] = useState(screenHeight - 350);
+  const [expandedHeight, setExpandedHeight] = useState(screenHeight * 0.95);
+
+  useEffect(() => {
+    // console.log(screenHeight);
+    setInitialHeight(screenHeight - 350);
+    setExpandedHeight(screenHeight * 0.95);
+  }, [screenHeight]);
+
+  // useEffect(() => {
+  //   console.log("이니샬", initialHeight);
+  // }, [initialHeight]);
+
+  // useEffect(() => {
+  //   console.log("확장", expandedHeight);
+  // }, [expandedHeight]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenHeight(window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // API - 리딩스페이스 조회
   const getCards = async () => {
@@ -114,16 +136,6 @@ const ReadingSpaceComponent = ({
     }
   }, [isAllDelete]);
 
-  //이벤트 핸들러
-  const handleDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
-
-  const handleOutModal = () => {
-    setShowOutModal(false);
-    handleEditMode();
-  };
-
   const handleHelpClick = () => {
     setIsHelp(!isHelp);
   };
@@ -146,10 +158,6 @@ const ReadingSpaceComponent = ({
 
   const handleDelete = () => {
     setShowDeleteModal(true);
-  };
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
   };
 
   const handleBackdropClick = () => {
@@ -175,22 +183,27 @@ const ReadingSpaceComponent = ({
   };
 
   //드래그 관련
-  const [{ height }, api] = useSpring(() => ({
-    height: initialHeight,
-    onChange: () => {
-      setIsFloatingVisible(height.get() < hideButtonThreshold);
-      setHelpVisible(height.get() > hideButtonThreshold);
-      if (isMine) {
-        setIsNavBar(height.get() < hideButtonThreshold);
-      }
-    },
-  }));
+  const [{ height }, api] = useSpring(
+    () => ({
+      height: initialHeight,
+      onChange: () => {
+        setIsFloatingVisible(height.get() < initialHeight + 50);
+        setHelpVisible(height.get() > initialHeight + 50);
+        if (isMine) {
+          setIsNavBar(height.get() < initialHeight + 50);
+        }
+      },
+    }),
+    [initialHeight]
+  );
 
   const bind = useDrag(
     ({ movement: [, my], memo = height.get(), last }) => {
       if (isEditMode) return memo;
       if (last) {
-        api.start({ height: my < -100 ? expandedHeight : initialHeight });
+        api.start({
+          height: my < -100 ? expandedHeight : initialHeight,
+        });
       } else {
         const newHeight = Math.max(
           initialHeight,
@@ -215,7 +228,7 @@ const ReadingSpaceComponent = ({
 
   return (
     <>
-      <div className="relative z-0 ">
+      <div className="relative z-0">
         <DragDropContext onDragEnd={handleDragEnd} className="z-[-3] bg-white ">
           <animated.div
             style={{
@@ -330,7 +343,6 @@ const ReadingSpaceComponent = ({
                           </div>
                         )
                       ) : (
-                        // 카드가 있을 때 렌더링
                         <DraggableList
                           cards={cards}
                           setCards={setCards}

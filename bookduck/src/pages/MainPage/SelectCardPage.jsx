@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import ExtractCard from "../../components/MainPage/ExtractCard";
 import ReviewCard from "../../components/MainPage/ReviewCard";
@@ -10,7 +9,6 @@ const SelectCardPage = () => {
   const navigate = useNavigate();
   return (
     <div className="w-[24.5625rem]">
-      <StatusBar />
       <Header3 title="카드 선택" />
 
       <div className="flex flex-col gap-[0.38rem] pt-[1.44rem] px-5 pb-[2.19rem]">

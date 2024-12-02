@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../components/OtherUserPage/Header";
-import StatusBar from "../../components/common/StatusBar";
 import { get, post, del } from "../../api/example";
 import { useNavigate } from "react-router-dom";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
@@ -100,7 +99,6 @@ const OtherMainPage = () => {
 
   return (
     <div className="bg-gray-50 overflow-hidden h-screen">
-      <StatusBar />
       <Header
         userRelationshipStatus={userInfo?.userRelationshipStatus}
         handleAddClick={() => postFriendRequestQuery.mutate(userId)}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, post } from "../../api/example";
-import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import SearchComponent from "../../components/common/SearchComponent";
 import ExtractCard from "../../components/MainPage/ExtractCard";
@@ -130,7 +129,6 @@ const SelectExtractPage = () => {
 
   return (
     <div className="w-[24.5625rem]">
-      <StatusBar />
       <Header3 title="발췌 카드 선택" />
       <div className="mt-[0.62rem] mb-4">
         <SearchComponent

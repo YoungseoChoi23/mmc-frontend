@@ -1,6 +1,5 @@
 import Header1 from "../../components/common/Header1";
 import Header3 from "../../components/common/Header3";
-import StatusBar from "../../components/common/StatusBar";
 import Header from "../../components/RecordingPage/Header";
 import ListIcon from "../../components/LibraryPage/ListIcon";
 import CoverIcon from "../../components/LibraryPage/CoverIcon";
@@ -142,7 +141,6 @@ const EnterBookCasePage = () => {
 
   return (
     <>
-      <StatusBar />
       {editState ? (
         <Header3
           title="책장 편집"

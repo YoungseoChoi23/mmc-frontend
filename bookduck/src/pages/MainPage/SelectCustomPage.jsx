@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { get, post } from "../../api/example";
-import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import OneBookCard from "../../components/MainPage/OneBookCard";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
@@ -107,7 +106,6 @@ const SelectCustomPage = () => {
   };
   return (
     <div className="w-[24.5625rem]">
-      <StatusBar />
       <Header3 title="커스텀 카드" />
       <div className="mt-[2.63rem] px-5">
         <OneBookCard

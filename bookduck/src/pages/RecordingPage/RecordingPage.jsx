@@ -1,14 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import Divider1 from "../../components/common/Divider1";
+import { useNavigate } from "react-router-dom";
 import Divider2 from "../../components/common/Divider2";
-import Header1 from "../../components/common/Header1";
 import Header3 from "../../components/common/Header3";
-import StatusBar from "../../components/common/StatusBar";
 import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthorComponent";
 import ExtractWritingComponent from "../../components/RecordingPage/ExtractWritingComponent";
-import Header2 from "../../components/RecordingPage/Header2";
 import ReviewWritingComponent from "../../components/RecordingPage/ReviewWritingComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import WritingTemplate from "../../components/RecordingPage/WritingTemplate";
 import ButtonComponent from "../../components/common/ButtonComponent";
@@ -135,7 +131,6 @@ const RecordingPage = () => {
 
   return (
     <>
-      <StatusBar />
       <Header3
         title="기록하기"
         check={true}

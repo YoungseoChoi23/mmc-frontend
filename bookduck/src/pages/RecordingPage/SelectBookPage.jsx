@@ -4,7 +4,6 @@ import Archiving from "../../components/RecordingPage/Archiving";
 import Search from "../../components/RecordingPage/Search";
 import Library from "../../components/RecordingPage/Library";
 import DirectRegister from "../../components/RecordingPage/DirectRegister";
-import StatusBar from "../../components/common/StatusBar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 
 const SelectBookPage = () => {
@@ -16,7 +15,6 @@ const SelectBookPage = () => {
 
   return (
     <>
-      <StatusBar />
       <div className="">
         <Header3 title="기록할 책 선택" />
         <div className="">

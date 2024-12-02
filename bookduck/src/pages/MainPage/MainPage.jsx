@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { get } from "../../api/example";
 import { getUserId } from "../../api/oauth";
 import BottomNavbar from "../../components/common/BottomNavbar";
-import StatusBar from "../../components/common/StatusBar";
 import Header2 from "../../components/common/Header2";
 import ReadingSpaceComponent from "../../components/MainPage/ReadingSpaceComponent";
 import right from "../../assets/common/right-yellow.svg";
@@ -92,7 +91,6 @@ const MainPage = () => {
 
   return (
     <div className={`${color} relative overflow-hidden h-screen`}>
-      <StatusBar />
       <div className="px-4">
         <Header2 isDot={isDot} />
       </div>
@@ -103,31 +101,36 @@ const MainPage = () => {
         <div className="text-t2 font-semibold text-black mt-[0.38rem]">
           꾸준한 독서 함께해요!
         </div>
-        <div className="flex flex-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
-          <span className="text-b2 text-gray-800 font-semibold">
-            현재 나의 기록수
-          </span>
-          <div className="flex flex-row">
-            <BookCountDisplay bookCount={userInfo?.bookCount || 0} />
-            <div className="ml-[0.62rem] self-end text-b2 text-gray-500 font-semibold">
-              개
+        <div className="flex flex-row relative">
+          <div>
+            <div className="flex flex-col w-[10.625rem] h-[6rem] bg-white rounded-[0.75rem] mt-[2.69rem] pl-4 pr-5 pt-3 gap-2">
+              <span className="text-b2 text-gray-800 font-semibold">
+                현재 나의 기록수
+              </span>
+              <div className="flex flex-row">
+                <BookCountDisplay bookCount={userInfo?.bookCount || 0} />
+                <div className="ml-[0.62rem] self-end text-b2 text-gray-500 font-semibold">
+                  개
+                </div>
+              </div>
             </div>
+            <button
+              className="w-[10.5625rem]"
+              onClick={() => navigate(`/statistics/${userId}`)}
+            >
+              <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] h-[2.625rem] bg-white rounded-[0.625rem] mt-[0.81rem]">
+                <span className="text-b2 text-gray-800 font-semibold">
+                  독서 리포트 보러가기
+                </span>
+                <img src={right} alt="arrow" />
+              </div>
+            </button>
+          </div>
+          <div className="absolute left-40 top-10 w-[12.6875rem] h-[12.9375rem]">
+            <UserDuck userId={userId} />
           </div>
         </div>
-        <button
-          className="w-[10.5625rem]"
-          onClick={() => navigate(`/statistics/${userId}`)}
-        >
-          <div className="flex justify-center items-center gap-[0.38rem] w-[10.625rem] h-[2.625rem] bg-white rounded-[0.625rem] mt-[0.81rem]">
-            <span className="text-b2 text-gray-800 font-semibold">
-              독서 리포트 보러가기
-            </span>
-            <img src={right} alt="arrow" />
-          </div>
-        </button>
-        <div className="absolute top-[14.25rem] right-0 w-[12.6875rem] h-[12.9375rem]">
-          <UserDuck userId={userId} />
-        </div>
+
         <ReadingSpaceComponent
           setColor={setColor}
           setIsNavBar={setIsNavBar}

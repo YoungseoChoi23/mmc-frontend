@@ -6,7 +6,6 @@ import TotalView from "../../components/RecordingPage/TotalView";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import ExtractView from "../../components/RecordingPage/ExtractView";
 import ReviewView from "../../components/RecordingPage/ReviewView";
-import StatusBar from "../../components/common/StatusBar";
 import { useNavigate } from "react-router-dom";
 import FloatingRecordButton from "../../components/common/FloatingRecordButton";
 import { useQuery } from "@tanstack/react-query";
@@ -23,7 +22,6 @@ const ArchivePage = () => {
 
   return (
     <>
-      <StatusBar />
       <div className="flex flex-col ">
         <Header title="기록 아카이브" />
         <TabBarComponent

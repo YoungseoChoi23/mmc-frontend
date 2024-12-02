@@ -5,7 +5,6 @@ import Header2 from "../../components/RecordingPage/Header2";
 import ReviewDetailComponent from "../../components/RecordingPage/ReviewDetailComponent";
 import { useEffect, useRef, useState } from "react";
 import ExtractDetailComponent from "../../components/RecordingPage/ExtractDetailComponent";
-import StatusBar from "../../components/common/StatusBar";
 import DeleteModal from "../../components/common/modal/DeleteModal";
 import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
 import { delExtractReview } from "../../api/archive";
@@ -69,7 +68,6 @@ const ArchiveDetail = () => {
 
   return (
     <>
-      <StatusBar />
       <div className=" mx-4">
         <div className="flex flex-col gap-[0.31rem]">
           <Header2 handleMenu={handleMenu} />

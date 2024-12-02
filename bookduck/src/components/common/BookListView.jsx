@@ -28,6 +28,8 @@ const BookListView = ({
         return "중단했어요";
       case "FINISHED":
         return "다 읽었어요";
+      case "ADD_TO_LIBRARY":
+        return "서재 담기";
       default:
         return "읽고 싶어요";
     }
@@ -37,18 +39,20 @@ const BookListView = ({
       onClick={handleOnClick}
       className="flex items-center justify-between w-full h-[7.75rem] pb-[0.5rem] pt-[0.5rem] cursor-pointer"
     >
-      <div className="flex gap-[0.75rem] items-center w-[15.75rem] h-[6.75rem]">
+      <div className="flex gap-3 items-center  h-[6.75rem] ">
         <img
           className="w-[4.75rem] h-[6.75rem]"
           src={bookImg ? bookImg : coverEx}
           alt="coverEx"
         />
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 w-[13rem]">
           {register && (
             <div className=" text-c1 text-orange-400">직접 등록한 책</div>
           )}
-          <div className="text-b1 text-gray-800">{bookTitle}</div>
-          <div className=" text-b1 text-gray-500">{author}</div>
+          <div className="text-b1 text-gray-800 line-clamp-2 break-words">
+            {bookTitle}
+          </div>
+          <div className=" text-b1 text-gray-500 truncate">{author}</div>
           <div className="flex mt-[0.5rem]">
             {[...Array(5)].map((_, index) => (
               <div key={index}>
@@ -69,7 +73,7 @@ const BookListView = ({
             <img src={menuBar} alt="menuBar" />
           </div>
         ) : (
-          <button onClick={handleStatusClick} className="flex flex-row">
+          <button onClick={handleStatusClick} className="flex flex-row ml-3">
             <div className="text-btn4 text-gray-500">
               {readingStauts(status)}
             </div>

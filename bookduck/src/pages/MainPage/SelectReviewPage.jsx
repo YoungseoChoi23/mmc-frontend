@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { get, post } from "../../api/example";
 import { useNavigate } from "react-router-dom";
-import StatusBar from "../../components/common/StatusBar";
 import Header3 from "../../components/common/Header3";
 import SearchComponent from "../../components/common/SearchComponent";
 import ReviewCard from "../../components/MainPage/ReviewCard";
@@ -124,7 +123,6 @@ const SelectReviewPage = () => {
 
   return (
     <div>
-      <StatusBar />
       <Header3 title="한줄평 카드 선택" />
       <div className="mt-[0.62rem] mb-4">
         <SearchComponent
