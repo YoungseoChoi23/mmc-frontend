@@ -16,6 +16,7 @@ const EditBookListView = ({
   edit,
   addBook,
   rating,
+  initState,
 }) => {
   return (
     <div
@@ -57,7 +58,7 @@ const EditBookListView = ({
       {addBook && (
         <div className="flex">
           <span className="text-c1 text-gray-500 cursor-pointer">
-            읽고 싶어요
+            {initState}
           </span>
           <img src={downArrow} alt="downArrow" />
         </div>

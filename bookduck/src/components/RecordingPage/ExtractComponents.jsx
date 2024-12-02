@@ -8,6 +8,7 @@ const ExtractComponents = ({ excerptData, archive = false }) => {
     .split("T")[0]
     .replace(/-/g, ".");
   console.log(excerptData);
+  const archiveId = excerptData.archiveId;
   const excerptId = excerptData.data.excerptId;
   const title = excerptData?.title;
   const author = excerptData?.author;
@@ -16,16 +17,16 @@ const ExtractComponents = ({ excerptData, archive = false }) => {
   const navigate = useNavigate();
 
   const handleOnClick = async () => {
-    const res = await getDetailExtractReview(excerptId, "EXCERPT");
+    const res = await getDetailExtractReview(archiveId);
     const typeState =
       res.excerpt && res.review ? "ALL" : res.excerpt ? "EXCERPT" : "REVIEW";
-
+    console.log("123132");
     if (typeState === "ALL")
-      navigate(`/total-archive-detail/${res.archiveId}`, {
+      navigate(`/total-archive-detail/${archiveId}`, {
         state: { detailData: res },
       });
     if (typeState === "EXCERPT")
-      navigate(`/excerpt-archive-detail/${res.archiveId}`, {
+      navigate(`/excerpt-archive-detail/${archiveId}`, {
         state: { detailData: res },
       });
   };

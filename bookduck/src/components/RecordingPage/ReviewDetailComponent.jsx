@@ -10,8 +10,7 @@ import link from "../../assets/recordingPage/link.svg";
 
 import BottomSheetModal from "../common/BottomSheetModal";
 import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
-import { useParams } from "react-router-dom";
-import { getDetailExtractReview } from "../../api/archive";
+
 
 const ReviewDetailComponent = ({ archiveDetailData }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);

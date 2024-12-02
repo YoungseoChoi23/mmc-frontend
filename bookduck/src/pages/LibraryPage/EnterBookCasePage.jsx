@@ -52,6 +52,21 @@ const EnterBookCasePage = () => {
     }
   };
 
+  const getReadingStatus = (status) => {
+    switch (status) {
+      case "NOT_STARTED":
+        return "읽고 싶어요";
+      case "READING":
+        return "읽고 있어요";
+      case "FINISHED":
+        return "다 읽었어요";
+      case "STOPPED":
+        return "중단했어요";
+      default:
+        return "읽고 싶어요";
+    }
+  };
+
   const {
     data: folderBookListData = { bookList: [] },
     isError,
@@ -203,7 +218,7 @@ const EnterBookCasePage = () => {
                     folderBookListData.folderBookList.map((book, index) => (
                       <div key={index}>
                         <BookListView
-                          register={true}
+                          register={book.isCustom}
                           bookTitle={book.title}
                           author={book.author}
                           edit={true}
@@ -303,6 +318,7 @@ const EnterBookCasePage = () => {
                               bookImg={book.imgPath}
                               rating={book.rating}
                               isSelected={selectedIndex.includes(index)}
+                              initState={getReadingStatus(book.readStatus)}
                             />
                           </div>
                         </div>
@@ -330,6 +346,7 @@ const EnterBookCasePage = () => {
                               bookImg={book.imgPath}
                               rating={book.rating}
                               isSelected={selectedIndex.includes(index)}
+                              initState={getReadingStatus(book.readStatus)}
                             />
                           </div>
                         </div>

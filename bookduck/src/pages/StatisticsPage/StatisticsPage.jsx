@@ -10,12 +10,13 @@ import PreferredGenre from "../../components/StatisticsPage/PreferredGenre";
 import MonthlyReading from "../../components/StatisticsPage/MonthlyReading";
 import UserCard from "../../components/StatisticsPage/UserCard";
 import { getUserStatisticsInfo } from "../../api/statistics";
-// import { getUserId } from "../../api/oauth";
+import { getUserId } from "../../api/oauth";
 
 const StatisticsPage = () => {
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isMyPage, setIsMyPage] = useState(false);
 
   const genreToKorean = {
     FICTION: "소설",
@@ -56,6 +57,16 @@ const StatisticsPage = () => {
     };
     fetchData();
   }, [userId]);
+
+  useEffect(() => {
+    const checkIsMyPage = async () => {
+      const myUserId = await getUserId();
+      setIsMyPage(myUserId === userId);
+      console.log("아이디 확인", myUserId, userId);
+    };
+    checkIsMyPage();
+  }, [userId]);
+
   if (loading) {
     return <div className="text-center mt-10"></div>;
   }
@@ -107,7 +118,7 @@ const StatisticsPage = () => {
         독서를 응원합니다!
       </div>
       <div className="flex justify-center">
-        <SummaryFloatingButton />
+        {isMyPage && <SummaryFloatingButton />}
       </div>
     </div>
   );

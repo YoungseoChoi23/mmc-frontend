@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useReviewColorStore from "../../store/useReviewColorStore";
 import Cards from "./Cards";
 import cards from "../../assets/recordingPage/cards.svg";
+
 const ReviewWritingComponent = ({
   inputValue,
   handleTextField,
@@ -13,12 +14,14 @@ const ReviewWritingComponent = ({
   authorValue = "지은이",
   reviewPrivateShow,
   setReviewPrivateShow,
+  handleDecoration,
 }) => {
   const { reviewColor } = useReviewColorStore();
   const navigate = useNavigate();
   const handleToggle = () => {
     setReviewPrivateShow(!reviewPrivateShow);
   };
+
   return (
     <>
       <div className="flex flex-col gap-[0.38rem]">
@@ -37,16 +40,7 @@ const ReviewWritingComponent = ({
                 <img src={cards} />
               )}
               <div
-                onClick={() =>
-                  navigate("/recording/decoration", {
-                    state: {
-                      textValue: inputValue,
-                      titleValue: titleInputValue,
-                      bookTitleValue: bookTitleValue,
-                      authorValue: authorValue,
-                    },
-                  })
-                }
+                onClick={handleDecoration}
                 style={reviewColor ? { color: reviewColor } : undefined} // bgColor가 있을 때만 style 적용
                 className={`text-b2 ${reviewColor ? "" : "text-gray-500"}`} // bgColor가 없을 때 gray-500 사용
               >

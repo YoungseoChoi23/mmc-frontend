@@ -50,7 +50,7 @@ const BookListPage = ({ view }) => {
     switch (status) {
       case "NOT_STARTED":
         return "읽고 싶어요";
-      case "READING,":
+      case "READING":
         return "읽고 있어요";
       case "FINISHED":
         return "다 읽었어요";

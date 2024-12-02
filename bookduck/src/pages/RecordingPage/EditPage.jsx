@@ -1,29 +1,75 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Divider1 from "../../components/common/Divider1";
 import Divider2 from "../../components/common/Divider2";
+import Header1 from "../../components/common/Header1";
 import Header3 from "../../components/common/Header3";
+import StatusBar from "../../components/common/StatusBar";
 import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthorComponent";
 import ExtractWritingComponent from "../../components/RecordingPage/ExtractWritingComponent";
+import Header2 from "../../components/RecordingPage/Header2";
 import ReviewWritingComponent from "../../components/RecordingPage/ReviewWritingComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import WritingTemplate from "../../components/RecordingPage/WritingTemplate";
 import ButtonComponent from "../../components/common/ButtonComponent";
 import useBookInfoStore from "../../store/useBookInfoStore";
-import { postExtractReview } from "../../api/archive";
+import {
+  getDetailExtractReview,
+  postExtractReview,
+  putDetailExtractReview,
+} from "../../api/archive";
 import useExtractData from "../../store/useExtractDataStore";
 import useReviewData from "../../store/useReviewDataStore";
 import useReviewColorStore from "../../store/useReviewColorStore";
+import { useQuery } from "@tanstack/react-query";
 
-const RecordingPage = () => {
+const EditPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [viewBottomSheet, setViewBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [bottomSheetType, setBottomSheetType] = useState("");
   const [privateShow, setPrivateShow] = useState(false);
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
-  const author = location.state?.author;
-  const title = location.state?.title;
-  console.log(location);
+  const { id } = useParams();
+  const archiveId = id;
+  const { reviewColor, setReviewColor } = useReviewColorStore();
+  const { bookInfo, setBookInfo } = useBookInfoStore();
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
+  const [initData, setInitData] = useState(true);
+  const changedColor = location.state?.color;
+  console.log(location.state?.color);
+  const {
+    data: archiveDetailData,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["archiveDetailData"],
+    queryFn: () => getDetailExtractReview(archiveId),
+  });
+
+  console.log(archiveDetailData);
+
+  useEffect(() => {
+    if (!pageInputValue && !extractInputValue) {
+      setPageInputValue(archiveDetailData.excerpt?.pageNumber);
+      setExtractInputValue(archiveDetailData.excerpt?.excerptContent);
+    }
+    if (!titleInputValue && !reviewInputValue) {
+      setTitleInputValue(archiveDetailData?.review?.reviewTitle);
+      setReviewInputValue(archiveDetailData?.review?.reviewContent);
+    }
+    setReviewColor(archiveDetailData?.review?.color);
+    setAuthor(archiveDetailData?.author);
+    setTitle(archiveDetailData?.title);
+  }, [archiveDetailData]);
+
+  useEffect(() => {
+    if (changedColor) {
+      setReviewColor(changedColor);
+    }
+  }, [changedColor]);
 
   const {
     pageInputValue,
@@ -40,18 +86,14 @@ const RecordingPage = () => {
     setReviewInputValue,
   } = useReviewData();
 
-  const { reviewColor, setReviewColor } = useReviewColorStore();
-
-  const { bookInfo, setBookInfo } = useBookInfoStore();
-
   const handleBack = () => {
     setReviewColor("");
-    navigate("/selectBook");
+    navigate("/archive");
   };
 
   const handleCancel = () => {
     setReviewColor("");
-    navigate("/selectBook");
+    navigate("/archive");
   };
 
   const handleExtractOnChange = (e) => {
@@ -84,31 +126,27 @@ const RecordingPage = () => {
     if (pageInputValue && extractInputValue && reviewInputValue) {
       data.excerpt = {
         excerptContent: extractInputValue,
-        visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
+        excerptVisibility: privateShow === true ? "PRIVATE" : "PUBLIC",
         pageNumber: parseInt(pageInputValue, 10),
-        userBookId: bookInfo.userBookId,
       };
       data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
-        visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
-        userBookId: bookInfo.userBookId,
+        reviewVisibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
       };
     } else if (pageInputValue && extractInputValue) {
       data.excerpt = {
         excerptContent: extractInputValue,
-        visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
+        excerptVisibility: privateShow === true ? "PRIVATE" : "PUBLIC",
         pageNumber: parseInt(pageInputValue, 10),
-        userBookId: bookInfo.userBookId,
       };
     } else if (reviewInputValue) {
       data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
-        visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
-        userBookId: bookInfo.userBookId,
+        reviewVisibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
       };
       setReviewColor("");
     }
@@ -128,29 +166,35 @@ const RecordingPage = () => {
     // },
 
     console.log(data);
-    const res = await postExtractReview(data);
+    const res = await putDetailExtractReview(archiveId, data);
     console.log(res);
     setBookInfo({});
     setPageInputValue();
     setExtractInputValue("");
     setTitleInputValue("");
     setReviewInputValue("");
+    setReviewColor("");
+    setAuthor("");
+    setTitle("");
+
     navigate("/archive");
+    window.location.reload();
   };
 
   const handleDecoration = () => {
-    navigate("/recording/decoration", {
+    navigate(`/recording/edit/${archiveId}/decoration`, {
       state: {
-        textValue: inputValue,
+        textValue: reviewInputValue,
         titleValue: titleInputValue,
-        bookTitleValue: bookTitleValue,
-        authorValue: authorValue,
+        bookTitleValue: title,
+        authorValue: author,
       },
     });
   };
 
   return (
     <>
+      <StatusBar />
       <Header3
         title="기록하기"
         check={true}
@@ -160,7 +204,12 @@ const RecordingPage = () => {
       />
       <div className="flex flex-col gap-[1rem] mx-4">
         <div className="mt-5">
-          <ColoredAuthorComponent bookInfo={bookInfo} />
+          <ColoredAuthorComponent
+            bookInfo={bookInfo}
+            edit={true}
+            author={author}
+            title={title}
+          />
         </div>
       </div>
       <div className="mx-4">
@@ -265,4 +314,4 @@ const RecordingPage = () => {
     </>
   );
 };
-export default RecordingPage;
+export default EditPage;

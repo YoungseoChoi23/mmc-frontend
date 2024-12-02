@@ -156,6 +156,8 @@ const UserDuck = ({ userId, selectedItems }) => {
           enablePan={true}
           enableRotate={true}
           enableZoom={false}
+          minAzimuthAngle={-Math.PI / 3}
+          maxAzimuthAngle={Math.PI / 3}
         />
       </Canvas>
     </div>

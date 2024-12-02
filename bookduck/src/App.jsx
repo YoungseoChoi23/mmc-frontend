@@ -36,7 +36,10 @@ import FriendListPage from "./pages/FriendPage/FriendListPage";
 import OAuthRedierctPage from "./pages/LoginPage/OAuthRedierctPage";
 import OtherMainPage from "./pages/OtherUserPage/OtherMainPage";
 import handleFcmToken from "./components/NotificationPage/handleFcmToken";
+import EditPage from "./pages/RecordingPage/EditPage";
+
 import { getUserId } from "./api/oauth";
+import EditCardDecorationPage from "./pages/RecordingPage/EditCardDecorationPage";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -143,6 +146,11 @@ function App() {
         <Route path="/excerpt-archive-detail/:id" element={<ArchiveDetail />} />
         <Route path="/review-archive-detail/:id" element={<ArchiveDetail />} />
         <Route path="/total-archive-detail/:id" element={<ArchiveDetail />} />
+        <Route path="/recording/edit/:id" element={<EditPage />} />
+        <Route
+          path="/recording/edit/:id/decoration"
+          element={<EditCardDecorationPage />}
+        />
 
         {/* 카드 선택 관련 */}
         <Route path="/selectcard" element={<SelectCardPage />} />

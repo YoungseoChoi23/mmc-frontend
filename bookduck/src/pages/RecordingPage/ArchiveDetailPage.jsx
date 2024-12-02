@@ -63,7 +63,7 @@ const ArchiveDetail = () => {
   };
 
   const handleEdit = () => {
-    navigate("/recording", { state: {} });
+    navigate(`/recording/edit/${id}`, { state: {} });
   };
 
   return (

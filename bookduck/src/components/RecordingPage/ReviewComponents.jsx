@@ -6,6 +6,7 @@ import { getDetailExtractReview } from "../../api/archive";
 
 const ReviewComponents = ({ reviewData, archive = false }) => {
   console.log(reviewData);
+  const archiveId = reviewData.archiveId;
   const content = reviewData?.data.reviewContent;
   console.log(content);
   const reviewId = reviewData?.data.reviewId;
@@ -21,16 +22,16 @@ const ReviewComponents = ({ reviewData, archive = false }) => {
   const { reviewColor } = useReviewColorStore();
 
   const handleOnClick = async () => {
-    const res = await getDetailExtractReview(reviewId, "REVIEW");
+    const res = await getDetailExtractReview(archiveId);
     const typeState =
       res.excerpt && res.review ? "ALL" : res.excerpt ? "EXCERPT" : "REVIEW";
 
     if (typeState === "ALL")
-      navigate(`/total-archive-detail/${res.archiveId}`, {
+      navigate(`/total-archive-detail/${archiveId}`, {
         state: { detailData: res },
       });
     if (typeState === "REVIEW")
-      navigate(`/review-archive-detail/${res.archiveId}`, {
+      navigate(`/review-archive-detail/${archiveId}`, {
         state: { detailData: res },
       });
   };

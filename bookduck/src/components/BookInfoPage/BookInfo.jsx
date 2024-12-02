@@ -31,7 +31,9 @@ const BookInfo = ({ isMe = "default", bookData }) => {
         src={bookBasicData?.imgPath}
         alt="Cover"
       />
-      <div className={`flex flex-col py-2 w-full  h-[10.25rem]`}>
+      <div
+        className={`flex flex-col justify-between py-2 w-full  h-[10.25rem]`}
+      >
         <div
           className={`flex flex-col ${
             isMe === "other" ? "justify-center" : ""
@@ -54,10 +56,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
               }  `}
             >
               {isMe === "default" ? (
-                <div className="flex items-center gap-1 text-b2 text-gray-500">
-                  <div>기본평점</div>
-                  <div>{bookData?.ratingAverage}</div>
-                </div>
+                <></>
               ) : (
                 <div className="text-b2 text-orange-400">내가 등록한 책</div>
               )}
@@ -86,7 +85,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
                       isCancel={isCancel}
                       handlePutCancel={handlePutCancel}
                     />
-                  </div>{" "}
+                  </div>
                 </BottomSheetModal>
               )}
             </div>
