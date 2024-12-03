@@ -119,6 +119,7 @@ const SelectReviewPage = () => {
   const handleSubmitClick = () => {
     postCard();
     navigate("/home");
+    window.location.reload();
   };
 
   return (
