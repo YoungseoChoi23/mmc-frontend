@@ -96,36 +96,65 @@ const RecordingPage = () => {
 
   const handleComplete = async () => {
     const data = {};
-    if (pageInputValue && extractInputValue && reviewInputValue) {
+    if (bookInfo.userBookId) {
+      if (pageInputValue && extractInputValue && reviewInputValue) {
+        data.excerpt = {
+          excerptContent: extractInputValue,
+          visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
+          pageNumber: parseInt(pageInputValue, 10),
+          userBookId: bookInfo.userBookId ? bookInfo.userBookId : null,
+        };
+        data.review = {
+          reviewTitle: titleInputValue,
+          reviewContent: reviewInputValue,
+          color: reviewColor,
+          visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
+          userBookId: bookInfo.userBookId ? bookInfo.userBookId : null,
+        };
+      } else if (pageInputValue && extractInputValue) {
+        data.excerpt = {
+          excerptContent: extractInputValue,
+          visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
+          pageNumber: parseInt(pageInputValue, 10),
+          userBookId: bookInfo.userBookId ? bookInfo.userBookId : null,
+        };
+      } else if (reviewInputValue) {
+        data.review = {
+          reviewTitle: titleInputValue,
+          reviewContent: reviewInputValue,
+          color: reviewColor,
+          visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
+          userBookId: bookInfo.userBookId ? bookInfo.userBookId : null,
+        };
+        setReviewColor("");
+      }
+    } else {
       data.excerpt = {
         excerptContent: extractInputValue,
         visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
         pageNumber: parseInt(pageInputValue, 10),
-        userBookId: bookInfo.userBookId,
+        userBookId: null,
       };
       data.review = {
         reviewTitle: titleInputValue,
         reviewContent: reviewInputValue,
         color: reviewColor,
         visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
-        userBookId: bookInfo.userBookId,
+        userBookId: null,
       };
-    } else if (pageInputValue && extractInputValue) {
-      data.excerpt = {
-        excerptContent: extractInputValue,
-        visibility: privateShow === true ? "PRIVATE" : "PUBLIC",
-        pageNumber: parseInt(pageInputValue, 10),
-        userBookId: bookInfo.userBookId,
+      data.userBook = {
+        title: bookInfo.bookUnitDto.title,
+        author: bookInfo.bookUnitDto.author,
+        publisher: bookInfo.bookUnitDto?.publisher,
+        publishDate: bookInfo.bookUnitDto?.publishDate,
+        description: bookInfo.bookUnitDto?.description,
+        genreId: bookInfo.bookUnitDto?.genreId,
+        category: ["fiction"],
+        imgPath: bookInfo.bookUnitDto?.imgPath,
+        language: bookInfo.bookUnitDto?.language,
+        readStatus: "READING",
+        providerId: bookInfo.providerId,
       };
-    } else if (reviewInputValue) {
-      data.review = {
-        reviewTitle: titleInputValue,
-        reviewContent: reviewInputValue,
-        color: reviewColor,
-        visibility: reviewPrivateShow === true ? "PRIVATE" : "PUBLIC",
-        userBookId: bookInfo.userBookId,
-      };
-      setReviewColor("");
     }
 
     // userBook: {

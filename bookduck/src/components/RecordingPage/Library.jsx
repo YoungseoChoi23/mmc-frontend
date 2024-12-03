@@ -3,6 +3,7 @@ import BookListView from "../common/BookListView";
 import { getTotalBook } from "../../api/library";
 import { useQuery } from "@tanstack/react-query";
 import useBookInfoStore from "../../store/useBookInfoStore";
+import bookEx from "../../assets/common/book-cover-ex.svg";
 
 const Library = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Library = () => {
             handleOnClick={() => handleRecording(book)}
             bookTitle={book.title}
             author={book.authors}
-            bookImg={book.imgPath}
+            bookImg={book.imgPath ? book.imgPath : bookEx}
             rating={book.rating}
           />
         ))}

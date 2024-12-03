@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import img_template from "../../assets/recordingPage/img-template.svg";
+import imgEx from "../../assets/common/bookImg-ex.svg";
 const AuthorComponent = ({ archiveDetailData }) => {
   const navigate = useNavigate();
 
@@ -16,7 +17,9 @@ const AuthorComponent = ({ archiveDetailData }) => {
           <div>
             <img
               className="w-[3.0625rem] h-[4.375rem]"
-              src={archiveDetailData.imgPath}
+              src={
+                archiveDetailData.imgPath ? archiveDetailData.imgPath : imgEx
+              }
               alt="img_template"
             />
           </div>

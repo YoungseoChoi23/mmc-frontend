@@ -10,6 +10,8 @@ import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
 import Divider1 from "../common/Divider1";
 import Divider2 from "../common/Divider2";
 import ListBottomSheet from "../common/ListBottomSheet";
+import imgEx from "../../assets/common/bookImg-ex.svg";
+
 import {
   deleteBook,
   getSortedTotalBook,
@@ -203,7 +205,7 @@ const BookListPage = ({ view }) => {
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
                     author={book.authors}
-                    bookImg={book.imgPath}
+                    bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                   />
                 ))
@@ -217,7 +219,7 @@ const BookListPage = ({ view }) => {
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
                     author={book.authors}
-                    bookImg={book.imgPath}
+                    bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
                   />
                 ))}
@@ -231,7 +233,7 @@ const BookListPage = ({ view }) => {
               {tabList.length === 0
                 ? bookListData.bookList.map((book) => (
                     <BookComponent
-                      img={book.imgPath}
+                      img={book.imgPath ? book.imgPath : imgEx}
                       title={book.title}
                       rating={book.rating}
                     />
@@ -239,7 +241,7 @@ const BookListPage = ({ view }) => {
                 : sortedBookList &&
                   sortedBookList.map((book) => (
                     <BookComponent
-                      img={book.imgPath}
+                      img={book.imgPath ? book.imgPath : imgEx}
                       title={book.title}
                       rating={book.rating}
                     />

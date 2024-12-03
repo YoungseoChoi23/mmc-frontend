@@ -39,7 +39,7 @@ const getReadingStatusKor = (status) => {
   }
 };
 
-const SearchBookComponent = ({ search }) => {
+const SearchBookComponent = ({ search, selectBook = false, onClick }) => {
   const navigate = useNavigate();
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -276,9 +276,13 @@ const SearchBookComponent = ({ search }) => {
                 edit={true}
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, true)}
-                handleOnClick={() =>
-                  handleCustomBookClick(book.bookUnitDto.bookInfoId)
-                }
+                handleOnClick={() => {
+                  if (selectBook) {
+                    onClick(book);
+                  } else {
+                    handleCustomBookClick(book.bookUnitDto.bookInfoId);
+                  }
+                }}
                 isSearch={true}
               />
             ))}
@@ -298,9 +302,16 @@ const SearchBookComponent = ({ search }) => {
                 bottomSheet={true}
                 handleStatusClick={() => handleSelectedBook(book, false)}
                 isSearch={true}
-                handleOnClick={() =>
-                  handleBookClick(book.bookUnitDto.bookInfoId, book.providerId)
-                }
+                handleOnClick={() => {
+                  if (selectBook) {
+                    onClick(book);
+                  } else {
+                    handleBookClick(
+                      book.bookUnitDto.bookInfoId,
+                      book.providerId
+                    );
+                  }
+                }}
               />
             ))}
             <div ref={loaderRef} style={{ height: "1px" }} />

@@ -3,7 +3,7 @@ import BookListView from "../common/BookListView";
 import { useQuery } from "@tanstack/react-query";
 import { getSortedTotalBook } from "../../api/library";
 import useBookInfoStore from "../../store/useBookInfoStore";
-
+import bookEx from "../../assets/common/book-cover-ex.svg";
 const Archiving = () => {
   const navigate = useNavigate();
   const { setBookInfo } = useBookInfoStore();
@@ -22,6 +22,7 @@ const Archiving = () => {
     setBookInfo(bookInfo);
     navigate("/recording");
   };
+
   return (
     <div className="flex flex-col mx-4">
       {sortedBookListData &&
@@ -31,7 +32,7 @@ const Archiving = () => {
             handleOnClick={() => handleRecording(book)}
             bookTitle={book.title}
             author={book.authors}
-            bookImg={book.imgPath}
+            bookImg={book.imgPath ? book.imgPath : bookEx}
             rating={book.rating}
           />
         ))}

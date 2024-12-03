@@ -12,6 +12,7 @@ import ButtonComponent from "../../components/common/ButtonComponent";
 import EditBookListView from "../../components/common/EditBookListView";
 import add_book_btn from "../../assets/libraryPage/add-book-btn.svg";
 import RoundedTabComponent from "../../components/common/RoundedTabComponent";
+import imgEx from "../../assets/common/bookImg-ex.svg";
 import {
   deleteAddFolderBook,
   getBookFromFolder,
@@ -222,7 +223,7 @@ const EnterBookCasePage = () => {
                           bookTitle={book.title}
                           author={book.author}
                           edit={true}
-                          bookImg={book.imgPath}
+                          bookImg={book.imgPath ? book.imgPath : imgEx}
                           handleOnClick={() => {}}
                         />
                       </div>
@@ -237,7 +238,10 @@ const EnterBookCasePage = () => {
                   {folderBookListData &&
                     folderBookListData.folderBookList.map((book, index) => (
                       <div key={index}>
-                        <BookComponent img={book.imgPath} title={book.title} />
+                        <BookComponent
+                          img={book.imgPath ? book.imgPath : imgEx}
+                          title={book.title}
+                        />
                       </div>
                     ))}
                 </div>
@@ -266,7 +270,7 @@ const EnterBookCasePage = () => {
                           author={book.author}
                           edit={true}
                           addBook={false}
-                          bookImg={book.imgPath}
+                          bookImg={book.imgPath ? book.imgPath : imgEx}
                           isSelected={selectedIndex.includes(index)}
                         />
                       </div>
@@ -315,7 +319,7 @@ const EnterBookCasePage = () => {
                               author={book.author}
                               edit={false}
                               addBook={true}
-                              bookImg={book.imgPath}
+                              bookImg={book.imgPath ? book.imgPath : imgEx}
                               rating={book.rating}
                               isSelected={selectedIndex.includes(index)}
                               initState={getReadingStatus(book.readStatus)}

@@ -43,7 +43,9 @@ const DirectRegister = () => {
     formData.append("author", author);
     formData.append("pageCount", pages);
     formData.append("publisher", publisher);
-    formData.append("coverImage", imgFile);
+    {
+      imgFile && formData.append("coverImage", imgFile);
+    }
 
     const res = await postRegisterBook(formData);
     console.log(res);
