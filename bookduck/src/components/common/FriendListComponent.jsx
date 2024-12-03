@@ -2,9 +2,12 @@ import React from "react";
 import duck from "../../assets/common/duck.svg";
 import ButtonComponent from "./ButtonComponent";
 import badge from "../../assets/friendPage/badge.svg";
+import UserDuck from "../../components/CharacterPage/UserDuck";
+
 const FriendListComponent = ({
   image,
   userName,
+  userId,
   text,
   isOfficial,
   handleClick,
@@ -77,12 +80,7 @@ const FriendListComponent = ({
     >
       <div className="flex items-center">
         <div className="w-[3.5rem] h-[3.5rem] mr-3">
-          <img
-            src={image || duck}
-            alt="userPicture"
-            className="w-[100%] h-[100%] object-cover rounded-full"
-            onError={handleImageError}
-          />
+          <UserDuck userId={userId} />
         </div>
         <span>{userName}</span>
         {isOfficial && <img src={badge} className="ml-1" />}

@@ -49,7 +49,7 @@ const SummaryExport = () => {
       try {
         const res = await getExportSummaryInfo();
         console.log("조회 성공: ", res);
-        setBookData(res);
+        setExportData(res);
       } catch (err) {
         console.error("오류 발생: ", err);
       }

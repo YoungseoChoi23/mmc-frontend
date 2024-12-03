@@ -109,6 +109,7 @@ const FriendRequestComponent = () => {
           <div>
             {receivedFriendList.map((friend, index) => (
               <FriendListComponent
+                userId={friend.userId}
                 key={index}
                 userName={friend.userNickname}
                 handleDecline={() => putFriendRequest(friend.requestId)}

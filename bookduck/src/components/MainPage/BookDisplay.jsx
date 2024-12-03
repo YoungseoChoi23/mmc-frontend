@@ -46,22 +46,22 @@ const BookDisplay = ({
           {type === "BOOK_WITH_SONG" || display ? (
             <>
               <div className="relative flex flex-row justify-between ">
-                <span className="text-c1 text-gray-500 mr-1">
+                <span className="text-c1 text-gray-500 mr-1 line-clamp-2">
                   {text3 || "책 제목"}
                 </span>
                 <img src={music} alt="Music Icon" />
               </div>
               <div className="relative flex flex-col items-end">
-                <span className="text-gray-500 text-b1 font-semibold">
+                <span className="text-gray-500 text-b1 font-semibold line-clamp-2">
                   {text2 || "노래 제목"}
                 </span>
-                <span className="text-right text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]">
+                <span className="text-right text-gray-800 text-c1 bg-gray-10 w-full line-clamp-1">
                   by {text1 || "가수명"}
                 </span>
               </div>
             </>
           ) : (
-            <p className="text-gray-800 text-c1 bg-gray-10 w-full">
+            <p className="text-gray-800 text-c1 bg-gray-10 w-full line-clamp-5">
               {text1 || "메모"}
             </p>
           )}

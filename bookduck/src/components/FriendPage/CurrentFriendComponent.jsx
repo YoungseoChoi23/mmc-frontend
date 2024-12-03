@@ -38,6 +38,7 @@ const CurrentFriendComponent = () => {
     <div>
       {friendList.map((friend, index) => (
         <FriendListComponent
+          userId={friend.userId}
           key={index}
           userName={friend.nickname}
           isOfficial={friend.isOfficial}

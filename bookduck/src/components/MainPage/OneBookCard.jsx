@@ -174,13 +174,16 @@ const OneBookCard = ({
         >
           {cardType === "BOOK_WITH_SONG" ? (
             <>
-              <div className="relative flex flex-row justify-between ">
-                <input
+              <div className={`relative flex flex-row justify-between`}>
+                <textarea
                   type="text"
                   value={bookTitle}
                   name="책제목"
                   placeholder="책 제목"
-                  className="text-left text-gray-800 text-c1 bg-gray-10 w-[8.8125rem]"
+                  className={`text-left text-gray-800 text-c1 bg-gray-10  ${
+                    bookNumber === 1 ? "w-[12.4375rem]" : "w-[8.8125rem]"
+                  } resize-none focus:outline-none`}
+                  maxLength={21}
                   onChange={handleChange}
                 />
                 <img src={music} alt="Music Icon" />
@@ -191,7 +194,10 @@ const OneBookCard = ({
                   value={song}
                   name="노래제목"
                   placeholder=""
-                  className="text-b1 text-right text-gray-800 font-semibold bg-gray-10 w-[8.8125rem]"
+                  className={`text-b1 text-right text-gray-800 font-semibold bg-gray-10 ${
+                    bookNumber === 1 ? "w-[14.4375rem]" : "w-[8.8125rem]"
+                  }`}
+                  maxLength={20}
                   onChange={handleChange}
                 />
                 {!song && (
@@ -204,14 +210,19 @@ const OneBookCard = ({
                     </span>
                   </div>
                 )}
-                <p className="flex flex-row justify-end">
+                <p
+                  className={`flex flex-row justify-end ${
+                    bookNumber === 2 && "w-[9rem]"
+                  }`}
+                >
                   <span className="text-c1 text-gray-500 mr-1">by</span>
                   <input
                     type="text"
                     value={singer}
                     name="가수명"
                     placeholder=""
-                    className="text-right text-c1 text-gray-500 font-semibold bg-gray-10 focus:outline-none"
+                    className={`text-right text-c1 text-gray-500 font-semibold bg-gray-10 focus:outline-none `}
+                    maxLength={20}
                     onChange={handleChange}
                     style={{
                       width: `${Math.max(singer.length * 1.4, 2)}ch`,
@@ -231,12 +242,13 @@ const OneBookCard = ({
               </div>
             </>
           ) : (
-            <input
+            <textarea
               type="text"
               value={memo}
               name="메모"
-              placeholder="글을 메모해보세요"
-              className="text-gray-800 text-c1 bg-gray-10 w-full"
+              placeholder="자유롭게 메모해보세요! (80자)"
+              className="text-gray-800 text-c1 bg-gray-10 w-full h-full resize-none focus:outline-none"
+              maxLength={80}
               onChange={handleChange}
             />
           )}

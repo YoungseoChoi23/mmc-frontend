@@ -9,6 +9,7 @@ import CarouselComponent from "../../components/SearchPage/CarouselComponent";
 import SearchBookComponent from "../../components/SearchPage/SearchBookComponent";
 import SearchArchiveComponent from "../../components/SearchPage/SearchArchiveComponent";
 import SearchUserComponent from "../../components/SearchPage/SearchUserComponent";
+import BottomNavbar from "../../components/common/BottomNavbar";
 import TabBarComponent from "../../components/common/TabBarComponent";
 
 const SearchMainPage = () => {
@@ -141,6 +142,7 @@ const SearchMainPage = () => {
           )}
         </div>
       )}
+      <BottomNavbar />
     </div>
   );
 };
