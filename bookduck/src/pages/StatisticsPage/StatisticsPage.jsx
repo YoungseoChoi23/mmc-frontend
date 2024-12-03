@@ -9,7 +9,7 @@ import PreferredAuthor from "../../components/StatisticsPage/PreferredAuthor";
 import PreferredGenre from "../../components/StatisticsPage/PreferredGenre";
 import MonthlyReading from "../../components/StatisticsPage/MonthlyReading";
 import UserCard from "../../components/StatisticsPage/UserCard";
-import { getUserStatisticsInfo } from "../../api/statistics";
+import { getUserStatisticsInfo, getKeywords } from "../../api/statistics";
 import { getUserId } from "../../api/oauth";
 
 const StatisticsPage = () => {
@@ -17,6 +17,7 @@ const StatisticsPage = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMyPage, setIsMyPage] = useState(false);
+  const [hasKeywords, setHasKeywords] = useState(false);
 
   const genreToKorean = {
     FICTION: "소설",
@@ -44,25 +45,35 @@ const StatisticsPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
       try {
         const res = await getUserStatisticsInfo(userId);
-        console.log("조회성공: ", res);
         setUserData(res);
       } catch (err) {
-        console.error("오류 발생: ", err);
+        console.error("유저 데이터 로딩 오류: ", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+
+    const fetchKeywords = async () => {
+      try {
+        const keywords = await getKeywords(userId);
+        setHasKeywords(Array.isArray(keywords) && keywords.length > 0);
+      } catch (err) {
+        console.error("키워드 로딩 오류: ", err);
+        setHasKeywords(false);
+      }
+    };
+
+    fetchUserData();
+    fetchKeywords();
   }, [userId]);
 
   useEffect(() => {
     const checkIsMyPage = async () => {
       const myUserId = await getUserId();
-      setIsMyPage(myUserId === userId);
-      console.log("아이디 확인", myUserId, userId);
+      setIsMyPage(String(myUserId) === String(userId));
     };
     checkIsMyPage();
   }, [userId]);
@@ -118,7 +129,7 @@ const StatisticsPage = () => {
         독서를 응원합니다!
       </div>
       <div className="flex justify-center">
-        {isMyPage && <SummaryFloatingButton />}
+        {isMyPage && hasKeywords && <SummaryFloatingButton />}
       </div>
     </div>
   );

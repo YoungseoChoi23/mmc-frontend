@@ -48,3 +48,15 @@ export const getExportSummaryInfo = async () => {
     throw error;
   }
 };
+
+// 캐릭터 내보내기 정보 제공
+export const getExportCharacterInfo = async () => {
+  try {
+    const res = await get(`/export/character`);
+    console.log("캐릭터 요약 정보 조회 성공: ", res);
+    return res;
+  } catch (error) {
+    console.error("캐릭터 요약 정보 조회 실패: ", error);
+    throw error;
+  }
+};
