@@ -57,56 +57,59 @@ const SummaryExport = () => {
     fetchData();
   }, []);
   return (
-    <div
-      className="relative flex flex-col items-center w-[285px] h-[430px]"
-      style={{ backgroundImage: `url(${summary})` }}
-    >
-      <div className=" text-center mt-[27px] pr-[21px] text-st font-semibold">
-        <span className="font-regular">{exportData?.nickname}</span>님의
-        <br />
-        {exportData?.season} 독서 리포트
-      </div>
-      <div className="mt-5 mb-[1.1431rem] pr-4 text-b2 text-gray-500 font-semibold rotate-[1.417deg]">
-        Date {seasonDate?.dateRange}
-      </div>
-      <div className="relative flex flex-col pr-4 gap-2 text-gray-800 text-b2 font-semibold">
-        <img className="w-[14.4375rem] h-[0.0625rem]" src={divider} />
-        <div className="flex justify-between px-2 ">
-          다 읽은 책<span>{exportData?.finishedBookCount} </span>
-        </div>
-        <img className="w-[14.4375rem] h-[0.0625rem]" src={divider} />
-        <div className="flex flex-col px-2 gap-1">
-          <div className="flex justify-between">
-            선호하는 작가<span>{exportData?.mostReadAuthor}</span>
-          </div>
-          <div className="flex justify-between">
-            선호하는 장르<span>{exportData?.mostReadGenre}</span>
-          </div>
-          <div className="flex justify-between">
-            기록 키워드<span>{exportData?.keyword}</span>
-          </div>
-        </div>
-        <img className="mb-0.5 w-[14.4375rem] h-[0.0625rem]" src={divider} />
-        <div className="flex flex-col px-2 gap-1">
-          <div className="flex justify-between">
-            발췌<span>{exportData?.excerptCount}</span>
-          </div>
-          <div className="flex justify-between">
-            감상<span>{exportData?.reviewCount}</span>
-          </div>
-          <div className="flex justify-between">
-            TOTAL<span>{exportData?.bookRecordCount}</span>
-          </div>
-        </div>
-        <img className="mt-0.5 w-[14.4375rem] h-[0.0625rem]" src={divider} />
-      </div>
-      <div className="absolute bottom-[1.375rem] left-[6.4063rem] flex items-center text-[0.6875rem] font-caprasimo text-gray-500 z-10 w-[3.75rem] h-[0.8125rem]">
-        BookDuck
-      </div>
+    <div className="relative flex flex-col items-center w-[285px] h-[430px]">
       <img
-        className="absolute bottom-[0.8125rem] left-[7.2813rem] w-[1.875rem] h-[1.875rem]"
-        src={star}
+        className="absolute top-0 left-0 w-[285px] h-[430px] z-[-1]"
+        src={summary}
       />
+      <div className="flex flex-col items-center z-[1]">
+        <div className=" text-center mt-[27px] pr-[21px] text-st font-semibold">
+          <span className="font-regular">{exportData?.nickname}</span>님의
+          <br />
+          {exportData?.season} 독서 리포트
+        </div>
+        <div className="mt-5 mb-[1.1431rem] pr-4 text-b2 text-gray-500 font-semibold rotate-[1.417deg]">
+          Date {seasonDate?.dateRange}
+        </div>
+        <div className="relative flex flex-col pr-4 gap-2 text-gray-800 text-b2 font-semibold">
+          <img className="w-[14.4375rem] h-[0.0625rem]" src={divider} />
+          <div className="flex justify-between px-2 ">
+            다 읽은 책<span>{exportData?.finishedBookCount} </span>
+          </div>
+          <img className="w-[14.4375rem] h-[0.0625rem]" src={divider} />
+          <div className="flex flex-col px-2 gap-1">
+            <div className="flex justify-between">
+              선호하는 작가<span>{exportData?.mostReadAuthor}</span>
+            </div>
+            <div className="flex justify-between">
+              선호하는 장르<span>{exportData?.mostReadGenre}</span>
+            </div>
+            <div className="flex justify-between">
+              기록 키워드<span>{exportData?.keyword}</span>
+            </div>
+          </div>
+          <img className="mb-0.5 w-[14.4375rem] h-[0.0625rem]" src={divider} />
+          <div className="flex flex-col px-2 gap-1">
+            <div className="flex justify-between">
+              발췌<span>{exportData?.excerptCount}</span>
+            </div>
+            <div className="flex justify-between">
+              감상<span>{exportData?.reviewCount}</span>
+            </div>
+            <div className="flex justify-between">
+              TOTAL<span>{exportData?.bookRecordCount}</span>
+            </div>
+          </div>
+          <img className="mt-0.5 w-[14.4375rem] h-[0.0625rem]" src={divider} />
+        </div>
+        <div className="absolute bottom-[1.375rem] left-[6.4063rem] flex items-center text-[0.6875rem] font-caprasimo text-gray-500 z-10 w-[3.75rem] h-[0.8125rem]">
+          BookDuck
+        </div>
+        <img
+          className="absolute bottom-[0.8125rem] left-[7.2813rem] w-[1.875rem] h-[1.875rem]"
+          src={star}
+        />
+      </div>
     </div>
   );
 };
