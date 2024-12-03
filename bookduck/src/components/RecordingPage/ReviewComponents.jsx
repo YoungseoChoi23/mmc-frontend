@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { getUserId } from "../../api/oauth";
 import { getDetailExtractReview } from "../../api/archive";
 
-const ReviewComponents = ({ reviewData, archive = false }) => {
+const ReviewComponents = ({ reviewData, archive = false, font }) => {
   console.log(reviewData);
   const archiveId = reviewData.archiveId;
   const content = reviewData?.data.reviewContent;
@@ -45,15 +45,17 @@ const ReviewComponents = ({ reviewData, archive = false }) => {
         } shadow-custom`}
       >
         {!archive && createdDate && (
-          <div className="text-c2 text-[#ffffff99]">{createdDate}</div>
+          <div className={`text-c2 text-[#ffffff99] ${font}`}>
+            {createdDate}
+          </div>
         )}
         <div className="flex flex-col gap-[0.25rem]">
-          <div className="text-st text-[#FFFFFF] font-semibold">
+          <div className={`text-st text-[#FFFFFF] font-semibold ${font}`}>
             {reviewTitle}
           </div>
-          <div className="text-b2 text-[#FFFFFF]">{content}</div>
+          <div className={`text-b2 text-[#FFFFFF] ${font}`}>{content}</div>
         </div>
-        <div className="text-c2 text-[#ffffff99]">
+        <div className={`text-c2 text-[#ffffff99] ${font}`}>
           {title && author && `${title} / ${author}`}
         </div>
       </div>

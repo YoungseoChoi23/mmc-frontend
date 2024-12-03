@@ -9,7 +9,7 @@ import link from "../../assets/recordingPage/link.svg";
 
 import BottomSheetModal from "../common/BottomSheetModal";
 import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
-const ExtractDetailComponent = ({ archiveDetailData }) => {
+const ExtractDetailComponent = ({ archiveDetailData, font }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -29,16 +29,16 @@ const ExtractDetailComponent = ({ archiveDetailData }) => {
       <div className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem] bg-gray-10 shadow-custom  ">
         <div className="flex flex-col gap-5  ">
           <div className="flex justify-between">
-            <div className="text-c1 text-gray-400">
+            <div className={`text-c1 text-gray-400 ${font}`}>
               {formattedDate(archiveDetailData.excerpt.createdTime)}
               {archiveDetailData.excerpt.visibility === "PRVATE" &&
                 "/ 나만보기"}
             </div>
-            <div className="text-b2 text-gray-400">
+            <div className={`text-b2 text-gray-400 ${font}`}>
               {archiveDetailData.excerpt.pageNumber}p
             </div>
           </div>
-          <div className="text-b2 text-gray-800  ">
+          <div className={`text-b2 text-gray-800 ${font}`}>
             {archiveDetailData.excerpt.excerptContent}
           </div>
           <div className=" flex gap-4 justify-end">

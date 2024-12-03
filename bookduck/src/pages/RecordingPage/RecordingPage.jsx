@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { get } from "../../api/example";
+import { useQuery } from "@tanstack/react-query";
 import Divider2 from "../../components/common/Divider2";
 import Header3 from "../../components/common/Header3";
 import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthorComponent";
@@ -25,6 +27,22 @@ const RecordingPage = () => {
   const { bookInfo, setBookInfo } = useBookInfoStore();
   const author = location.state?.author;
   const title = location.state?.title;
+
+  const {
+    data: font,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["fontSettings"],
+    queryFn: async () => {
+      const response = await get(`/settings`);
+      console.log(response);
+      return response.recordFont;
+    },
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
   const {
     pageInputValue,
@@ -168,6 +186,7 @@ const RecordingPage = () => {
           handleTextField={handleExtractTextField}
           privateShow={privateShow}
           setPrivateShow={setPrivateShow}
+          font={font}
         />
       </div>
       <div className="mt-7 mb-4">
@@ -183,6 +202,7 @@ const RecordingPage = () => {
           reviewPrivateShow={reviewPrivateShow}
           setReviewPrivateShow={setReviewPrivateShow}
           handleDecoration={handleDecoration}
+          font={font}
         />
       </div>
       <div className="h-[7.5rem]"></div>
@@ -209,14 +229,14 @@ const RecordingPage = () => {
                           onChange={(e) => setPageInputValue(e.target.value)}
                           className="w-[2.5rem] bg-transparent text-b2 text-gray-800"
                         />
-                        <div className="text-b2 text-gray-400">p</div>
+                        <div className={`text-b2 text-gray-400 ${font}`}>p</div>
                       </div>
                     </div>
                     <textarea
                       value={extractInputValue}
                       onChange={handleExtractOnChange}
                       placeholder="책의 구절을 입력하세요"
-                      className="w-[20.5625rem] h-[13rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
+                      className={`w-[20.5625rem] h-[13rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
                     />
                   </div>
                 </WritingTemplate>
@@ -237,13 +257,13 @@ const RecordingPage = () => {
                       value={titleInputValue}
                       onChange={(e) => setTitleInputValue(e.target.value)}
                       placeholder="제목 (25자 이내로 작성하세요)"
-                      className="text-b1 font-semibold bg-transparent"
+                      className={`text-b1 font-semibold bg-transparent ${font}`}
                     />
                     <textarea
                       value={reviewInputValue}
                       onChange={handleReviewOnChange}
                       placeholder="책에 대한 자유로운 감상을 기록하세요"
-                      className="w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none"
+                      className={`w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
                     />
                   </div>
                 </WritingTemplate>

@@ -11,6 +11,7 @@ const ExtractWritingComponent = ({
   pageInputValue,
   setPrivateShow,
   privateShow,
+  font,
 }) => {
   const handleToggle = () => {
     setPrivateShow(!privateShow);
@@ -60,15 +61,15 @@ const ExtractWritingComponent = ({
               <div
                 className={`${
                   pageInputValue ? "text-gray-800" : "text-gray-400"
-                }`}
+                } ${font}`}
               >
                 {pageInputValue ? pageInputValue : "페이지"}
               </div>
-              <div className="text-gray-400">p</div>
+              <div className={`text-gray-400 ${font}`}>p</div>
             </div>
             <textarea
               value={inputValue}
-              className="w-[20.5625rem] h-[6rem] mt-2 bg-transparent text-b2 appearance-none outline-none resize-none"
+              className={`w-[20.5625rem] h-[6rem] mt-2 bg-transparent text-b2 appearance-none outline-none resize-none ${font}`}
               placeholder="책의 구절을 입력하세요"
               readOnly
             />

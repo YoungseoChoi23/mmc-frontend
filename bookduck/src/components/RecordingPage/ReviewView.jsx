@@ -3,7 +3,7 @@ import { getExtractReview } from "../../api/archive";
 import { getUserId } from "../../api/oauth";
 import ReviewComponents from "./ReviewComponents";
 
-const ReviewView = () => {
+const ReviewView = ({ font }) => {
   const userId = getUserId();
   const {
     data: archiveReviewData,
@@ -16,7 +16,12 @@ const ReviewView = () => {
   return (
     <div className="flex flex-col gap-[1rem] items-center mt-[1rem]">
       {archiveReviewData.archiveList.map((it, index) => (
-        <ReviewComponents key={index} reviewData={it} archive={true} />
+        <ReviewComponents
+          key={index}
+          reviewData={it}
+          archive={true}
+          font={font}
+        />
       ))}
     </div>
   );

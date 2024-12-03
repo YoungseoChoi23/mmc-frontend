@@ -11,8 +11,7 @@ import link from "../../assets/recordingPage/link.svg";
 import BottomSheetModal from "../common/BottomSheetModal";
 import BottomSheetMenuComponent from "../common/BottomSheetMenuComponent";
 
-
-const ReviewDetailComponent = ({ archiveDetailData }) => {
+const ReviewDetailComponent = ({ archiveDetailData, font }) => {
   const [bottomSheetShow, setBottomSheetShow] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -34,14 +33,14 @@ const ReviewDetailComponent = ({ archiveDetailData }) => {
         className="w-[22.5825rem]  px-5 py-6 rounded-[0.88rem]  shadow-custom "
       >
         <div className="flex flex-col gap-2 ">
-          <div className="text-c1 text-white ">
+          <div className={`text-c1 text-white ${font}`}>
             {formattedDate(archiveDetailData.review.createdTime)}
             {archiveDetailData.review.visibility === "PRVATE" && "/ 나만보기"}
           </div>
-          <div className="text-st font-semibold text-white ">
+          <div className={`text-st font-semibold text-white ${font}`}>
             {archiveDetailData.review.reviewTitle}
           </div>
-          <div className="text-b2 text-white ">
+          <div className={`text-b2 text-white ${font}`}>
             {archiveDetailData.review.reviewContent}
           </div>
           <div className="flex gap-4 justify-end">

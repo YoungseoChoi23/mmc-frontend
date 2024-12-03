@@ -4,7 +4,7 @@ import ReviewComponents from "./ReviewComponents";
 import { getExtractReview } from "../../api/archive";
 import { getUserId } from "../../api/oauth";
 
-const TotalView = () => {
+const TotalView = ({ font }) => {
   const userId = getUserId();
   const {
     data: archiveData,
@@ -20,9 +20,19 @@ const TotalView = () => {
       {archiveData.archiveList.map((it, index) => (
         <>
           {it.type === "EXCERPT" ? (
-            <ExtractComponents key={index} excerptData={it} archive={true} />
+            <ExtractComponents
+              key={index}
+              excerptData={it}
+              archive={true}
+              font={font}
+            />
           ) : (
-            <ReviewComponents key={index} reviewData={it} archive={true} />
+            <ReviewComponents
+              key={index}
+              reviewData={it}
+              archive={true}
+              font={font}
+            />
           )}
         </>
       ))}

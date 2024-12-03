@@ -1,4 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { get } from "../../api/example";
 import AuthorComponent from "../../components/RecordingPage/AuthorComponent";
 import CloseButton from "../../components/RecordingPage/CloseButton";
 import Header2 from "../../components/RecordingPage/Header2";
@@ -10,6 +12,20 @@ import BottomSheetModal2 from "../../components/BookInfoPage/BottomSheetModal2";
 import { delExtractReview } from "../../api/archive";
 
 const ArchiveDetail = () => {
+  const {
+    data: font,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["fontSettings"],
+    queryFn: async () => {
+      const response = await get(`/settings`);
+      return response.recordFont;
+    },
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
   const pathname = window.location.pathname;
   const [isHeightExceeded, setIsHeightExceeded] = useState(false);
   const [visibleMenu, setVisibleMenu] = useState(false);
@@ -76,16 +92,28 @@ const ArchiveDetail = () => {
               <ExtractDetailComponent archiveDetailData={archiveDetailData} />
             )}
             {pathname.split("/")[1] === "review-archive-detail" && (
-              <ReviewDetailComponent archiveDetailData={archiveDetailData} />
+              <ReviewDetailComponent
+                archiveDetailData={archiveDetailData}
+                font={font}
+              />
             )}
             {pathname.split("/")[1] === "total-archive-detail" && (
               <>
-                <ExtractDetailComponent archiveDetailData={archiveDetailData} />
-                <ReviewDetailComponent archiveDetailData={archiveDetailData} />
+                <ExtractDetailComponent
+                  archiveDetailData={archiveDetailData}
+                  font={font}
+                />
+                <ReviewDetailComponent
+                  archiveDetailData={archiveDetailData}
+                  font={font}
+                />
               </>
             )}
 
-            <AuthorComponent archiveDetailData={archiveDetailData} />
+            <AuthorComponent
+              archiveDetailData={archiveDetailData}
+              font={font}
+            />
           </div>
           <div
             className={`mt-8 ${
