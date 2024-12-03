@@ -3,7 +3,7 @@ import BookListView from "../common/BookListView";
 import { getTotalBook } from "../../api/library";
 import { useQuery } from "@tanstack/react-query";
 import useBookInfoStore from "../../store/useBookInfoStore";
-import bookEx from "../../assets/common/book-cover-ex.svg";
+import bookEx from "../../assets/common/bookImg-ex.svg";
 
 const Library = () => {
   const navigate = useNavigate();
