@@ -100,9 +100,10 @@ const SelectCustomPage = () => {
     }, 200);
   };
 
-  const handleSubmitClick = () => {
-    postCard();
+  const handleSubmitClick = async () => {
+    await postCard();
     navigate("/home");
+    window.location.reload();
   };
   return (
     <div className="w-[24.5625rem]">

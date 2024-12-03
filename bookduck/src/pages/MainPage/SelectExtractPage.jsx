@@ -122,8 +122,8 @@ const SelectExtractPage = () => {
     setExcerptId(id);
   };
 
-  const handleSubmitClick = () => {
-    postCard();
+  const handleSubmitClick = async () => {
+    await postCard();
     navigate("/home");
     window.location.reload();
   };
