@@ -103,7 +103,6 @@ const SelectCustomPage = () => {
   const handleSubmitClick = () => {
     postCard();
     navigate("/home");
-    window.location.reload();
   };
   return (
     <div className="w-[24.5625rem]">
