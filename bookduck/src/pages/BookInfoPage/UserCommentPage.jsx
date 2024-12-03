@@ -12,7 +12,7 @@ const UserCommentPage = () => {
         <div className="flex flex-col gap-1">
           {ratingList.length > 0 &&
             ratingList.map((oneLine, index) => (
-              <div className="flex flex-col items-center">
+              <div key={index} className="flex flex-col items-center">
                 <UserComment data={oneLine} key={index} />
                 <Divider2 />
               </div>

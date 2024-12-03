@@ -69,6 +69,7 @@ const SearchUserComponent = ({ search }) => {
         users.map((user) => (
           <FriendListComponent
             key={user.userId}
+            userId={user.userId}
             isOfficial={user.isOfficial}
             userName={user.nickname}
             text={user.isFriend ? "친구" : "none"}

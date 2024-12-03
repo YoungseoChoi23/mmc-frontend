@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import starNo from "../../assets/bookinfoPage/star-small-no.svg";
 import starYes from "../../assets/bookinfoPage/star-small-yes.svg";
 import starHalf from "../../assets/bookinfoPage/star-small-half.svg";
@@ -8,6 +9,7 @@ import { enrollLike, deleteLike } from "../../api/bookinfo";
 import { getUserId } from "../../api/oauth";
 
 const UserComment = ({ data }) => {
+  const navigate = useNavigate();
   //날짜 포맷
   const formattedDate = data?.createdTime.split("T")[0].replace(/-/g, ".");
   const [isLiked, setIsLiked] = useState(data?.isLiked || false);
@@ -30,7 +32,9 @@ const UserComment = ({ data }) => {
       console.error("좋아요 처리 실패:", error);
     }
   };
-
+  const handleUserClick = (userId) => {
+    navigate(`/user/${userId}`);
+  };
   return (
     <div className="flex flex-col p-4 gap-1.5 text-b2 w-[24.5625rem]">
       <div className="flex flex-col gap-3">
@@ -50,7 +54,10 @@ const UserComment = ({ data }) => {
           {userId === data.userId ? (
             <span className="text-orange-400">나의 한줄평</span>
           ) : (
-            <span className=" underline cursor-pointer">
+            <span
+              className=" underline cursor-pointer"
+              onClick={() => handleUserClick(data?.userId)}
+            >
               {data?.userNickname}
             </span>
           )}

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import duck from "../../assets/common/duck.svg";
 import ButtonComponent from "./ButtonComponent";
 import badge from "../../assets/friendPage/badge.svg";
-import UserDuck from "../../components/CharacterPage/UserDuck";
+
+// UserDuck 컴포넌트를 동적으로 임포트
+const UserDuck = lazy(() => import("../../components/CharacterPage/UserDuck"));
 
 const FriendListComponent = ({
   image,
@@ -16,40 +18,32 @@ const FriendListComponent = ({
   handleDecline,
   handleAccept,
 }) => {
-  //에러 핸들링
-  const handleImageError = (e) => {
-    e.target.src = duck;
-  };
-
-  //텍스트 조건 처리 함수
+  // 텍스트 조건 처리 함수
   const renderActionButton = () => {
-    if (text === "none") {
-      return null;
-    }
-
-    if (text === "삭제") {
-      return (
-        <button
-          onClick={handleDelete}
-          className="text-btn3 text-[#FFBF68] px-3 py-1"
-        >
-          삭제
-        </button>
-      );
-    }
-    if (text === "취소") {
-      return (
-        <button
-          onClick={handleCancel}
-          className="text-btn3 text-gray-400 px-3 py-1"
-        >
-          취소
-        </button>
-      );
-    }
-
-    if (text === "친구") {
-      return <span className="text-blue-400 text-b2">친구</span>;
+    switch (text) {
+      case "삭제":
+        return (
+          <button
+            onClick={handleDelete}
+            className="text-btn3 text-[#FFBF68] px-3 py-1"
+          >
+            삭제
+          </button>
+        );
+      case "취소":
+        return (
+          <button
+            onClick={handleCancel}
+            className="text-btn3 text-gray-400 px-3 py-1"
+          >
+            취소
+          </button>
+        );
+      case "친구":
+        return <span className="text-blue-400 text-b2">친구</span>;
+      case "none":
+      default:
+        return null;
     }
   };
 
@@ -80,10 +74,12 @@ const FriendListComponent = ({
     >
       <div className="flex items-center">
         <div className="w-[3.5rem] h-[3.5rem] mr-3">
-          <UserDuck userId={userId} />
+          <img src={duck} className="object-cover w-full h-full" />
         </div>
-        <span>{userName}</span>
-        {isOfficial && <img src={badge} className="ml-1" />}
+        <span className="ml-2 text-gray-800">{userName}</span>
+        {isOfficial && (
+          <img src={badge} className="ml-1 w-5 h-5" alt="Official Badge" />
+        )}
       </div>
       <div>{text ? renderActionButton() : renderButtons()}</div>
     </div>
