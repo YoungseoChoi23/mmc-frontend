@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <div className="h-screen overflow-hidden flex flex-col">
       <div className="flex flex-col flex-grow justify-end bg-gray-10 px-5 py-6 ">
-        <div className="self-center pb-[7rem]">
+        <div className="self-center pb-[4rem]">
           <img src={mainDuck} className="w-[12.75rem] h-[12.375rem] " />
         </div>
         <div className="flex flex-col ">
