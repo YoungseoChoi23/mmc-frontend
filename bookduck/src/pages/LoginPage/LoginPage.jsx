@@ -6,15 +6,16 @@ import google from "../../assets/loginPage/google.svg";
 const LoginPage = () => {
   return (
     <div className="h-screen overflow-hidden flex flex-col">
-      <div className="h-[50%] flex flex-col  bg-gray-10 px-5">
-        <img
-          src={mainDuck}
-          className="w-[12.75rem] h-[12.375rem] mx-auto mt-[7rem] mb-[4rem] "
-        />
-        <p className="text-t1 font-semibold ">환영합니다!</p>
-        <p className="text-b1 ">북덕과 함께 책을 읽고 기록을 쌓아보세요</p>
+      <div className="flex flex-col flex-grow justify-end bg-gray-10 px-5 py-6 ">
+        <div className="self-center pb-[7rem]">
+          <img src={mainDuck} className="w-[12.75rem] h-[12.375rem] " />
+        </div>
+        <div className="flex flex-col ">
+          <p className="text-t1 font-semibold mb-2">환영합니다!</p>
+          <p className="text-b1 ">북덕과 함께 책을 읽고 기록을 쌓아보세요</p>
+        </div>
       </div>
-      <div className="flex flex-col gap-3 items-center bg-white">
+      <div className="flex flex-col gap-3 items-center bg-white py-5">
         <a
           href={GoogleURI}
           className="flex justify-center items-center gap-[0.62rem] w-[22.0625rem] h-[3rem] rounded-[0.5rem] border-solid border-[0.0938rem] border-[#ADADAD] bg-white mt-[1.69rem]"
