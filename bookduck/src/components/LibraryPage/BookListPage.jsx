@@ -19,6 +19,7 @@ import {
   patchBookStatus,
 } from "../../api/library";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const BookListPage = ({ view }) => {
   const [sort, setSort] = useState("최신순");
@@ -32,6 +33,8 @@ const BookListPage = ({ view }) => {
   const [sortedBookList, setSortedBookList] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState();
   const [currentState, setCurrentState] = useState({});
+
+  const navigate = useNavigate();
 
   const getSortKey = (sort) => {
     switch (sort) {
@@ -204,9 +207,13 @@ const BookListPage = ({ view }) => {
                     bottomSheet={true}
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
-                    author={book.authors}
+                    author={book.author}
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
+                    bookInfoId={book.bookInfoId}
+                    handleOnClick={() => {
+                      navigate(`/info/book/custom/${book.bookInfoId}`);
+                    }}
                   />
                 ))
               : sortedBookList &&
@@ -218,9 +225,13 @@ const BookListPage = ({ view }) => {
                     bottomSheet={true}
                     status={currentState[book.userBookId]}
                     bookTitle={book.title}
-                    author={book.authors}
+                    author={book.author}
                     bookImg={book.imgPath ? book.imgPath : imgEx}
                     rating={book.rating}
+                    bookInfoId={book.bookInfoId}
+                    handleOnClick={() => {
+                      navigate(`/info/book/custom/${book.bookInfoId}`);
+                    }}
                   />
                 ))}
 

@@ -3,6 +3,7 @@ import cover from "../../assets/bookinfoPage/cover.svg";
 import down from "../../assets/common/down-arrow.svg";
 import BottomSheetModal from "../common/BottomSheetModal";
 import ListBottomSheet from "../common/ListBottomSheet";
+import imgEx from "../../assets/common/bookImg-ex.svg";
 
 const BookInfo = ({ isMe = "default", bookData }) => {
   const statusArr = ["읽고 싶어요", "읽고 있어요", "다 읽었어요", "중단했어요"];
@@ -28,7 +29,7 @@ const BookInfo = ({ isMe = "default", bookData }) => {
     <div className="flex gap-4 w-[22.5625rem]">
       <img
         className="w-[7rem] h-[9.75rem] rounded bg-cover bg-no-repeat shadow-custom"
-        src={bookBasicData?.imgPath}
+        src={bookBasicData?.imgPath ? bookBasicData?.imgPath : imgEx}
         alt="Cover"
       />
       <div className={`flex flex-col justify-between py-2 w-full`}>

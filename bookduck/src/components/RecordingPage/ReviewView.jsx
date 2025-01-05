@@ -15,14 +15,20 @@ const ReviewView = ({ font }) => {
   });
   return (
     <div className="flex flex-col gap-[1rem] items-center mt-[1rem]">
-      {archiveReviewData.archiveList.map((it, index) => (
-        <ReviewComponents
-          key={index}
-          reviewData={it}
-          archive={true}
-          font={font}
-        />
-      ))}
+      {archiveReviewData.archiveList.length === 0 ? (
+        <div className="mt-[17rem] text-gray-400">
+          아직 작성된 감상평이 없어요!
+        </div>
+      ) : (
+        archiveReviewData.archiveList.map((it, index) => (
+          <ReviewComponents
+            key={index}
+            reviewData={it}
+            archive={true}
+            font={font}
+          />
+        ))
+      )}
     </div>
   );
 };

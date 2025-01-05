@@ -4,6 +4,7 @@ import emptyImage from "../../assets/recordingPage/rating-empty.svg";
 import filledImage from "../../assets/recordingPage/rating-filled.svg";
 import downArrow from "../../assets/common/down-arrow.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 //edit이 false면 편집 기능 없이 "읽고 있어요" 상태인 책 확인 in 기록할 책 선택 페이지
 //edit이 true, dropdown도 true면 상태 선택 가능한 드롭다운 표시
 const BookListView = ({

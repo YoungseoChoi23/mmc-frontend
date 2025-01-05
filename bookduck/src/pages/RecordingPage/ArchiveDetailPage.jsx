@@ -35,6 +35,9 @@ const ArchiveDetail = () => {
   const { id } = useParams();
   const [excerptId, setExcerptId] = useState();
   const [reviewId, setReviewId] = useState();
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [excerptClick, setExcerptClick] = useState(false);
+  const [reviewClick, setReviewClick] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +62,14 @@ const ArchiveDetail = () => {
   //메뉴 바텀시트에서 삭제 버튼 누르면 실행
   const handleDelete = () => {
     handleCancel();
+    if (pathname.split("/")[1] === "total-archive-detail") {
+      setDeleteMode(true);
+    } else {
+      setShowDeleteModal(true);
+    }
+  };
+
+  const handleSelectedDelete = () => {
     setShowDeleteModal(true);
   };
 
@@ -73,17 +84,44 @@ const ArchiveDetail = () => {
 
   const handleDeleteArchive = async () => {
     const archiveId = id;
-    const res = await delExtractReview(archiveId, excerptId, reviewId);
-    console.log(res);
-    navigate("/archive");
+    if (excerptClick && reviewClick) {
+      const res = await delExtractReview({ archiveId, excerptId, reviewId });
+      console.log("전체 삭제", res);
+      navigate("/archive");
+    } else if (excerptClick) {
+      const res = await delExtractReview({ archiveId, excerptId });
+      console.log("빨췌 삭제", res);
+      navigate("/archive");
+    } else if (reviewClick) {
+      const res = await delExtractReview({ archiveId, reviewId });
+      console.log("리뷰 삭제", res);
+      navigate("/archive");
+    } else {
+      const res = await delExtractReview({ archiveId, excerptId, reviewId });
+      console.log("삭제", res);
+      navigate("/archive");
+    }
   };
 
   const handleEdit = () => {
     navigate(`/recording/edit/${id}`, { state: {} });
   };
 
+  const handleExcerptClick = () => {
+    setExcerptClick(!excerptClick);
+  };
+
+  const handleReviewClick = () => {
+    setReviewClick(!reviewClick);
+  };
+
   return (
-    <>
+    <div className="">
+      {deleteMode && (
+        <>
+          <div className="fixed z-10 inset-0 bg-black bg-opacity-50 pointer-events-none"></div>
+        </>
+      )}
       <div className=" mx-4">
         <div className="flex flex-col gap-[0.31rem]">
           <Header2 handleMenu={handleMenu} />
@@ -99,14 +137,24 @@ const ArchiveDetail = () => {
             )}
             {pathname.split("/")[1] === "total-archive-detail" && (
               <>
-                <ExtractDetailComponent
-                  archiveDetailData={archiveDetailData}
-                  font={font}
-                />
-                <ReviewDetailComponent
-                  archiveDetailData={archiveDetailData}
-                  font={font}
-                />
+                <div
+                  onClick={handleExcerptClick}
+                  className={`${excerptClick ? "z-10" : ""}`}
+                >
+                  <ExtractDetailComponent
+                    archiveDetailData={archiveDetailData}
+                    font={font}
+                  />
+                </div>
+                <div
+                  onClick={handleReviewClick}
+                  className={`${reviewClick ? "z-10" : ""}`}
+                >
+                  <ReviewDetailComponent
+                    archiveDetailData={archiveDetailData}
+                    font={font}
+                  />
+                </div>
               </>
             )}
 
@@ -138,7 +186,15 @@ const ArchiveDetail = () => {
       )}
       {showDeleteModal && (
         <DeleteModal
-          title="정말 삭제하시겠어요?"
+          title={
+            excerptClick && !reviewClick
+              ? "발췌카드를 삭제하시겠어요?"
+              : !excerptClick && reviewClick
+              ? "감상카드를 삭제하시겠어요?"
+              : excerptClick && reviewClick
+              ? "모두 삭제하시겠어요?"
+              : "정말 삭제하시겠어요?"
+          }
           content="삭제된 카드는 다시 복구할 수 없어요."
           leftBtnText="삭제"
           rightBtnText="취소"
@@ -146,7 +202,35 @@ const ArchiveDetail = () => {
           onRightClick={handleDeleteModal}
         />
       )}
-    </>
+      {deleteMode && (
+        <div className="fixed z-20 bottom-[10px] left-[16.5px] ">
+          <div className="flex gap-3 ">
+            <button
+              onClick={() => {
+                setDeleteMode(false);
+                setExcerptClick(false);
+                setReviewClick(false);
+              }}
+              className="w-[8.4375rem] h-[3rem] rounded-[0.5rem] bg-gray-400 text-white font-semibold text-btn2 pointer-events-auto"
+            >
+              취소
+            </button>
+            <button
+              onClick={handleSelectedDelete}
+              className="w-[13.375rem] h-[3rem] rounded-[0.5rem] bg-orange-300 text-white font-semibold text-btn2 pointer-events-auto "
+            >
+              삭제하기(
+              {excerptClick && reviewClick
+                ? "2"
+                : excerptClick || reviewClick
+                ? "1"
+                : "0"}
+              )
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 export default ArchiveDetail;

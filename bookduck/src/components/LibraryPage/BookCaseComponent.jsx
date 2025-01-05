@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import horizontal_menu from "../../assets/common/horizontal-menu-gray.svg";
 import useBookListStore from "../../store/useBookListStore";
+import imgEx from "../../assets/common/bookImg-ex.svg";
 
 const BookCaseComponent = ({
   setShowMenuBottomSheet,
@@ -41,7 +42,10 @@ const BookCaseComponent = ({
           <div className="flex gap-2 w-[20.6rem] overflow-x-auto">
             {bookList.map((it, index) => (
               <div key={index} className="w-16 h-23 flex-shrink-0">
-                <img src={it.imgPath} className="w-full h-full object-cover" />
+                <img
+                  src={it.imgPath ? it.imgPath : imgEx}
+                  className="w-full h-full object-cover"
+                />
               </div>
             ))}
           </div>

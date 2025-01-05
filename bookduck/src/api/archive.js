@@ -43,7 +43,7 @@ export const putDetailExtractReview = async (archiveId, data) => {
   }
 };
 
-export const delExtractReview = async (archiveId, excerptId, reviewId) => {
+export const delExtractReview = async ({ archiveId, excerptId, reviewId }) => {
   try {
     // URL 조합: 필요한 파라미터만 포함
     let url = `/archives/${archiveId}`;
@@ -56,6 +56,7 @@ export const delExtractReview = async (archiveId, excerptId, reviewId) => {
     if (params.length > 0) {
       url += `?${params.join("&")}`;
     }
+    console.log(url);
 
     const res = await del(url);
     console.log("발췌 및 감상평 삭제 성공", res);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabBarComponent from "../../components/common/TabBarComponent";
 import BookListPage from "../../components/LibraryPage/BookListPage";
 import BookCasePage from "../../components/LibraryPage/BookCasePage";
@@ -11,12 +11,28 @@ import plus_orange from "../../assets/common/plus-orange.svg";
 import { postAddFolder } from "../../api/library";
 
 const LibraryPage = () => {
-  const [tab, setTab] = useState("책 목록");
   const [isClicked, setIsClicked] = useState("list");
   const [showAddBookCaseBottomSheet, setShowAddBookCaseBottomSheet] =
     useState(false);
   const [visible, setVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [clickedPage, setClickedPage] = useState(
+    localStorage.getItem("clickedPage") || "책 목록"
+  );
+
+  useEffect(() => {
+    const savedPage = localStorage.getItem("clickedPage");
+    if (savedPage) {
+      setClickedPage(savedPage);
+      console.log(1);
+    }
+    console.log(3);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("clickedPage", clickedPage);
+    console.log(2);
+  }, [clickedPage]);
 
   const handleIconClick = (view) => {
     setIsClicked(view);
@@ -45,20 +61,20 @@ const LibraryPage = () => {
         <Header title="서재" />
         <TabBarComponent
           tabs={["책 목록", "책장"]}
-          activeTab={tab}
-          onTabClick={setTab}
+          activeTab={clickedPage}
+          onTabClick={setClickedPage}
           size="small"
           borderWidth="3rem"
         />
 
         <div className="absolute right-0 top-[3.8rem] right-[0.63rem]">
-          {tab === "책 목록" && (
+          {clickedPage === "책 목록" && (
             <div className="flex gap-2 cursor-pointer">
               <ListIcon handleClick={handleIconClick} isClicked={isClicked} />
               <CoverIcon handleClick={handleIconClick} isClicked={isClicked} />
             </div>
           )}
-          {tab === "책장" && (
+          {clickedPage === "책장" && (
             <div
               onClick={() => setShowAddBookCaseBottomSheet(true)}
               className="flex gap-1 items-center mr-[0.37rem] cursor-pointer"
@@ -70,8 +86,8 @@ const LibraryPage = () => {
         </div>
 
         <div>
-          {tab === "책 목록" && <BookListPage view={isClicked} />}
-          {tab === "책장" && (
+          {clickedPage === "책 목록" && <BookListPage view={isClicked} />}
+          {clickedPage === "책장" && (
             <BookCasePage
               showAddBookCaseBottomSheet={showAddBookCaseBottomSheet}
             />

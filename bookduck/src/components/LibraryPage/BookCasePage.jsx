@@ -9,24 +9,6 @@ import book_case_ex3 from "../../assets/libraryPage/bookcase-ex3.svg";
 import { deleteFolder, getTotalFolder } from "../../api/library";
 import { useQuery } from "@tanstack/react-query";
 
-const bookList = [
-  { id: 0, title: "책제목1", author: "지은이1", img: book_case_ex1 },
-  { id: 1, title: "책제목1", author: "지은이1", img: book_case_ex1 },
-  { id: 2, title: "책제목2", author: "지은이2", img: book_case_ex2 },
-  { id: 3, title: "책제목3", author: "지은이3", img: book_case_ex3 },
-  { id: 4, title: "책제목1", author: "지은이1", img: book_case_ex1 },
-  { id: 5, title: "책제목2", author: "지은이2", img: book_case_ex2 },
-  { id: 6, title: "책제목3", author: "지은이3", img: book_case_ex3 },
-  { id: 7, title: "책제목1", author: "지은이1", img: book_case_ex1 },
-  { id: 8, title: "책제목2", author: "지은이2", img: book_case_ex2 },
-  { id: 9, title: "책제목3", author: "지은이3", img: book_case_ex3 },
-  { id: 10, title: "책제목1", author: "지은이1", img: book_case_ex1 },
-  { id: 11, title: "책제목2", author: "지은이2", img: book_case_ex2 },
-  { id: 12, title: "책제목3", author: "지은이3", img: book_case_ex3 },
-];
-
-const bookList2 = [];
-
 const BookCasePage = ({ showAddBookCaseBottomSheet, bookCaseId }) => {
   const [showMenuBottomSheet, setShowMenuBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);

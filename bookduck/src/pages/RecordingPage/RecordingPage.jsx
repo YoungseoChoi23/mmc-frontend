@@ -6,7 +6,7 @@ import Header3 from "../../components/common/Header3";
 import ColoredAuthorComponent from "../../components/RecordingPage/ColoredAuthorComponent";
 import ExtractWritingComponent from "../../components/RecordingPage/ExtractWritingComponent";
 import ReviewWritingComponent from "../../components/RecordingPage/ReviewWritingComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomSheetModal from "../../components/common/BottomSheetModal";
 import WritingTemplate from "../../components/RecordingPage/WritingTemplate";
 import ButtonComponent from "../../components/common/ButtonComponent";
@@ -18,6 +18,8 @@ import useReviewColorStore from "../../store/useReviewColorStore";
 
 const RecordingPage = () => {
   const navigate = useNavigate();
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
   const [viewBottomSheet, setViewBottomSheet] = useState(false);
   const [visible, setVisible] = useState(false);
   const [bottomSheetType, setBottomSheetType] = useState("");
@@ -25,8 +27,11 @@ const RecordingPage = () => {
   const [reviewPrivateShow, setReviewPrivateShow] = useState(false);
   const { reviewColor, setReviewColor } = useReviewColorStore();
   const { bookInfo, setBookInfo } = useBookInfoStore();
-  const author = location.state?.author;
-  const title = location.state?.title;
+
+  useEffect(() => {
+    setAuthor(location.state?.author);
+    setTitle(location.state?.title);
+  }, []);
 
   const {
     data: font,
@@ -50,6 +55,7 @@ const RecordingPage = () => {
     extractInputValue,
     setExtractInputValue,
   } = useExtractData();
+  console.log("pageInputValue:", pageInputValue, "extract:", extractInputValue);
   const {
     reviewPage,
     setReviewPage,
@@ -265,8 +271,20 @@ const RecordingPage = () => {
                       value={extractInputValue}
                       onChange={handleExtractOnChange}
                       placeholder="책의 구절을 입력하세요"
-                      className={`w-[20.5625rem] h-[13rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
+                      maxLength={300}
+                      className={`w-[20.5625rem] h-[11.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
                     />
+                  </div>
+                  <div className="absolute bottom-5 right-4">
+                    <div
+                      className={`text-btn3 ${
+                        extractInputValue.length > 300
+                          ? "text-red"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {extractInputValue.length}/300
+                    </div>
                   </div>
                 </WritingTemplate>
                 <ButtonComponent
@@ -274,7 +292,7 @@ const RecordingPage = () => {
                   type="primary"
                   color="gray"
                   onClick={handleBackdropClick}
-                  disabled={!extractInputValue}
+                  disabled={!extractInputValue || !pageInputValue}
                 />
               </>
             )}
@@ -292,8 +310,20 @@ const RecordingPage = () => {
                       value={reviewInputValue}
                       onChange={handleReviewOnChange}
                       placeholder="책에 대한 자유로운 감상을 기록하세요"
-                      className={`w-[20.5625rem] h-[13.5rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
+                      maxLength={1000}
+                      className={`w-[20.5625rem] h-[11rem] mt-2 bg-transparent text-b2 text-gray-800 appearance-none outline-none resize-none ${font}`}
                     />
+                  </div>
+                  <div className="absolute bottom-5 right-4">
+                    <div
+                      className={`text-btn3 ${
+                        reviewInputValue.length > 1000
+                          ? "text-red"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {reviewInputValue.length}/1000
+                    </div>
                   </div>
                 </WritingTemplate>
                 <ButtonComponent
